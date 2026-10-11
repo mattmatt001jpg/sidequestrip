@@ -50,7 +50,111 @@
 		h1, h2, h3 { color: var(--text); }
 		.toast { position: fixed; right: 20px; bottom: 20px; z-index: 20; background: #2c2c2e; color: var(--text); border: 1px solid #48484a; border-radius: 10px; padding: 12px 16px; box-shadow: 0 12px 36px #0008; animation: enter .2s ease-out; }
 		@keyframes enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-		@media (max-width: 640px) { .shell { width: min(100% - 28px, 1180px); } .metric { min-height: 132px; padding: 15px; } td, th { padding-left: 11px; padding-right: 11px; } .profit-summary { align-items: flex-start; flex-direction: column; gap: 8px; } .profit-summary #profit-total { align-self: flex-end; } }
+		@media (max-width: 640px) {
+			body { overflow-x: hidden; }
+			.shell { width: calc(100% - 24px); }
+			header .shell { min-height: 64px; }
+			header .shell > a { gap: 9px; min-width: 0; }
+			header .shell > a > span:last-child > span:first-child { font-size: 12px; }
+			header .shell > a > span:last-child > span:last-child { font-size: 9px; letter-spacing: .09em; }
+			#cloud-controls { flex-shrink: 0; }
+			#close-dashboard-button { min-height: 40px; }
+			#top { padding-top: 24px; padding-bottom: 40px; }
+			#top > section + section { margin-top: 34px; }
+			#overview-title { font-size: 23px; }
+			.metric { min-height: 118px; padding: 15px; }
+			.metric p[id$="-total"] { overflow-wrap: anywhere; }
+			#cash-input { min-width: 0; font-size: 20px; }
+			#save-cash-button { min-height: 40px; flex-shrink: 0; }
+			.profit-summary { align-items: flex-start; flex-direction: column; gap: 10px; }
+			.profit-summary #profit-total { align-self: flex-end; }
+			.section-heading { align-items: stretch !important; flex-direction: column; }
+			.section-heading > div:last-child { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+			.section-heading > button { width: 100%; }
+			.section-heading .action { min-height: 44px; }
+			.panel.p-4, .panel.p-6 { padding: 14px; }
+			.field { min-height: 46px; font-size: 16px !important; }
+			.action { min-height: 42px; }
+			form > .flex.items-center.justify-between { align-items: stretch; flex-direction: column; }
+			form > .flex.items-center.justify-between .action { width: 100%; }
+			#extra-edit-form > div:last-child,
+			#print-sale-form > div:last-child { width: 100%; }
+			#extra-edit-form > div:last-child .action,
+			#print-sale-form > div:last-child .action { width: 100%; }
+			#unpaid-orders-content, details .table-wrap, #inventory-content .table-wrap,
+			#cash-advances-content .table-wrap, #printing-sales-content, #cluster-sales-content {
+				overflow: visible;
+				background: transparent;
+				border: 0;
+				border-radius: 0;
+				box-shadow: none;
+			}
+			.table-wrap table, .table-wrap thead, .table-wrap tbody, .table-wrap tr, .table-wrap td { display: block; width: 100%; }
+			.table-wrap thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+			.table-wrap tbody { display: grid; gap: 10px; }
+			.table-wrap tbody tr {
+				background: var(--panel);
+				border: 1px solid var(--line);
+				border-radius: 12px;
+				overflow: hidden;
+				box-shadow: 0 6px 18px #00000020;
+			}
+			.table-wrap td {
+				display: flex;
+				align-items: flex-start;
+				justify-content: space-between;
+				gap: 16px;
+				padding: 10px 12px;
+				border-top: 1px solid #303033;
+				text-align: right;
+				overflow-wrap: anywhere;
+			}
+			.table-wrap td:first-child { border-top: 0; padding-top: 13px; }
+			.table-wrap td:last-child { align-items: center; padding-bottom: 13px; }
+			.table-wrap td::before {
+				content: '';
+				color: var(--muted);
+				font-size: 10px;
+				font-weight: 700;
+				letter-spacing: .06em;
+				text-align: left;
+				text-transform: uppercase;
+				white-space: nowrap;
+			}
+			.table-wrap td > div { justify-content: flex-end; flex-wrap: wrap; }
+			.table-wrap td .action { min-height: 38px; }
+			#products-body td:nth-child(1)::before { content: 'Product'; }
+			#products-body td:nth-child(2)::before { content: 'Puhunan'; }
+			#products-body td:nth-child(3)::before { content: 'Selling price'; }
+			#products-body td:nth-child(4)::before { content: 'Profit'; }
+			#products-body td:nth-child(5)::before { content: 'Actions'; }
+			#advances-body td:nth-child(1)::before { content: 'Category'; }
+			#advances-body td:nth-child(2)::before { content: 'Purchase'; }
+			#advances-body td:nth-child(3)::before { content: 'Cost from COH'; }
+			#advances-body td:nth-child(4)::before { content: 'Date'; }
+			#advances-body td:nth-child(5)::before { content: 'Correction'; }
+			#pending-orders-body td:nth-child(1)::before, #history-body td:nth-child(1)::before { content: 'Customer'; }
+			#pending-orders-body td:nth-child(2)::before, #history-body td:nth-child(2)::before { content: 'Product'; }
+			#pending-orders-body td:nth-child(3)::before, #history-body td:nth-child(3)::before { content: 'Item price'; }
+			#pending-orders-body td:nth-child(4)::before, #history-body td:nth-child(4)::before { content: 'Cost discount'; }
+			#pending-orders-body td:nth-child(5)::before, #history-body td:nth-child(5)::before { content: 'Tip / delivery'; }
+			#pending-orders-body td:nth-child(6)::before, #history-body td:nth-child(6)::before { content: 'Total due'; }
+			#pending-orders-body td:nth-child(7)::before { content: 'Profit'; }
+			#history-body td:nth-child(7)::before { content: 'Status'; }
+			#pending-orders-body td:nth-child(8)::before, #history-body td:nth-child(8)::before { content: 'Date'; }
+			#pending-orders-body td:nth-child(9)::before, #history-body td:nth-child(9)::before { content: 'Actions'; }
+			#printing-sales-body td:nth-child(1)::before { content: 'Print job'; }
+			#cluster-sales-body td:nth-child(1)::before { content: 'Cluster'; }
+			#printing-sales-body td:nth-child(2)::before, #cluster-sales-body td:nth-child(2)::before { content: 'Price'; }
+			#printing-sales-body td:nth-child(3)::before, #cluster-sales-body td:nth-child(3)::before { content: 'Profit'; }
+			#printing-sales-body td:nth-child(4)::before, #cluster-sales-body td:nth-child(4)::before { content: 'Status'; }
+			#printing-sales-body td:nth-child(5)::before, #cluster-sales-body td:nth-child(5)::before { content: 'Actions'; }
+			#advances-empty, #products-empty, #pending-empty, #history-empty,
+			#printing-sales-empty, #cluster-sales-empty { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+			details summary { min-height: 44px; display: flex; align-items: center; }
+			.toast { left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); text-align: center; }
+			footer { margin-top: 40px !important; padding-bottom: env(safe-area-inset-bottom); }
+		}
 	</style>
 		<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -130,7 +234,7 @@
 			</section>
 
 			<section class="mt-8" aria-labelledby="cash-advances-title">
-				<div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+				<div class="section-heading mb-4 flex flex-wrap items-end justify-between gap-3">
 					<div><p class="mono mb-2 text-[10px] uppercase tracking-[.18em] text-[#9aa293]">Cash movement</p><h2 id="cash-advances-title" class="text-xl font-extrabold">Stock Purchases / Abono from Current COH</h2><p class="mt-1 text-[11px] text-[#7f867d]">Abono here means cash used from the business's current COH to buy vape stock, clusters, supplies, or services.</p></div>
 					<div class="flex gap-2"><button id="toggle-advances-button" class="action action-quiet text-xs" type="button" aria-controls="cash-advances-content" aria-expanded="true">▾ Hide</button><button id="new-advance-button" class="action action-danger text-xs" type="button">− Record purchase</button></div>
 				</div>
@@ -150,7 +254,7 @@
 			</section>
 
 			<section class="mt-12" aria-labelledby="products-title">
-				<div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+				<div class="section-heading mb-4 flex flex-wrap items-end justify-between gap-3">
 					<div><p class="mono mb-2 text-[10px] uppercase tracking-[.18em] text-[#9aa293]">Inventory / 02</p><h2 id="products-title" class="text-xl font-extrabold">Reseller hub</h2></div>
 					<div class="flex gap-2"><button id="toggle-inventory-button" class="action action-quiet text-xs" type="button" aria-controls="inventory-content" aria-expanded="true">▾ Hide</button><button id="new-product-button" class="action action-quiet text-xs" type="button">＋ Add product</button></div>
 				</div>
@@ -172,7 +276,7 @@
 			</section>
 
 			<section class="mt-12" aria-labelledby="orders-title">
-				<div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+				<div class="section-heading mb-4 flex flex-wrap items-end justify-between gap-3">
 					<div><p class="mono mb-2 text-[10px] uppercase tracking-[.18em] text-[#9aa293]">Sales / 03</p><h2 id="orders-title" class="text-xl font-extrabold">Orders</h2></div>
 					<button id="new-order-button" class="action action-primary text-xs" type="button">＋ Add order</button>
 				</div>
@@ -214,7 +318,7 @@
 			</section>
 
 			<section class="mt-12" aria-labelledby="printing-title">
-				<div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+				<div class="section-heading mb-4 flex flex-wrap items-end justify-between gap-3">
 					<div><p class="mono mb-2 text-[10px] uppercase tracking-[.18em] text-[#9aa293]">Printing &amp; Clusters / 04</p><h2 id="printing-title" class="text-xl font-extrabold">Printing &amp; Clusters</h2></div>
 					<div class="flex gap-2"><button id="new-printing-sale-button" class="action action-quiet text-xs" type="button">＋ Add printing</button><button id="new-cluster-sale-button" class="action action-quiet text-xs" type="button">＋ Add cluster</button></div>
 				</div>
@@ -580,10 +684,10 @@
 				: `<button class="action action-quiet !px-2.5 !py-1.5 text-[11px]" type="button" data-toggle-order="${escapeHtml(order.id)}">Mark pending</button>`;
 			return `<tr>
 				<td class="font-semibold text-[#e4e7e0]">${escapeHtml(order.customer)}</td>
-				<td><span class="block text-[#d2d7cf]">${escapeHtml(order.productName)}</span><span class="mono text-[10px] text-[#7f867d]">Cost ${money(order.cost)}</span></td>
+				<td><div><span class="block text-[#d2d7cf]">${escapeHtml(order.productName)}</span><span class="mono text-[10px] text-[#7f867d]">Cost ${money(order.cost)}</span></div></td>
 				<td class="mono text-[#d9ded6]">${money(order.price)}</td>
 				<td class="mono text-[#b5bcb1]">${discount > 0 ? `−${money(discount)}` : '—'}</td>
-				<td>${extra}</td>
+				<td><div>${extra}</div></td>
 				<td class="mono font-medium text-[#d9ded6]">${money(orderTotal(order))}</td>
 				${history ? `<td>${status}</td>` : `<td class="mono text-[#c5f467]">${money(Number(order.price) - effectiveCost(order) + extraAmount(order))}</td>`}
 				<td class="mono whitespace-nowrap text-[11px] text-[#858c83]">${escapeHtml(order.dateLabel)}</td>
