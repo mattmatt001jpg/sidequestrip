@@ -28,6 +28,17 @@
 		.action-danger { color: #ff6961; background: #261919; border-color: #54302e; }
 		.action-danger:hover { background: #38211f; }
 		.action:disabled { cursor: not-allowed; opacity: .5; transform: none; }
+		.cash-movement-header { padding: 18px; background: linear-gradient(135deg, #1c1c1e 0%, #17171a 100%); }
+		.cash-movement-copy { max-width: 650px; }
+		.cash-guide { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+		.cash-guide-item { display: flex; align-items: flex-start; gap: 9px; padding: 10px 12px; border: 1px solid #343438; border-radius: 9px; background: #151517; }
+		.cash-guide-dot { width: 8px; height: 8px; margin-top: 4px; flex: 0 0 auto; border-radius: 999px; background: var(--red); }
+		.cash-guide-item:last-child .cash-guide-dot { background: var(--muted); }
+		.form-label { display: grid; align-content: start; gap: 6px; color: var(--muted); font-size: 11px; font-weight: 600; }
+		.cash-list-heading { padding: 2px 2px 0; }
+		.cash-total-chip { padding: 7px 10px; border: 1px solid #51302e; border-radius: 8px; background: #261919; }
+		.cash-history summary { padding: 11px 2px; border-radius: 8px; }
+		.cash-history summary:hover { background: #1c1c1e; }
 		.badge { display: inline-flex; align-items: center; gap: 6px; border-radius: 6px; padding: 4px 8px; font-size: 11px; font-weight: 700; letter-spacing: 0; text-transform: uppercase; }
 		.badge-paid { color: var(--green) !important; background: #173522 !important; }
 		.badge-pending { color: #ff827a !important; background: #3b211f !important; }
@@ -71,6 +82,12 @@
 			.section-heading { align-items: stretch !important; flex-direction: column; }
 			.section-heading > div:last-child { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
 			.section-heading .cash-actions > button:first-child { grid-column: 1 / -1; }
+			.cash-movement-header { padding: 15px; }
+			.cash-movement-header.section-heading { gap: 16px; }
+			.cash-movement-header .cash-actions > button:first-child { grid-column: 1 / -1; grid-row: 2; }
+			.cash-guide { grid-template-columns: 1fr; }
+			.cash-list-heading { align-items: flex-start !important; flex-direction: column; gap: 9px; }
+			.cash-total-chip { width: 100%; display: flex; justify-content: space-between; }
 			.section-heading > button { width: 100%; }
 			.section-heading .action { min-height: 44px; }
 			.panel.p-4, .panel.p-6 { padding: 14px; }
@@ -129,12 +146,12 @@
 			#products-body td:nth-child(3)::before { content: 'Selling price'; }
 			#products-body td:nth-child(4)::before { content: 'Profit'; }
 			#products-body td:nth-child(5)::before { content: 'Actions'; }
-			#advances-body td:nth-child(1)::before { content: 'Category'; }
-			#advances-body td:nth-child(2)::before { content: 'Purchase'; }
-			#advances-body td:nth-child(3)::before { content: 'Cost from COH'; }
+			#advances-body td:nth-child(1)::before { content: 'Purchase'; }
+			#advances-body td:nth-child(2)::before { content: 'Paid with'; }
+			#advances-body td:nth-child(3)::before { content: 'Amount'; }
 			#advances-body td:nth-child(4)::before { content: 'Date'; }
-			#advances-body td:nth-child(5)::before { content: 'Correction'; }
-			#cash-adjustments-body td:nth-child(1)::before { content: 'Type'; }
+			#advances-body td:nth-child(5)::before { content: 'Action'; }
+			#cash-adjustments-body td:nth-child(1)::before { content: 'Change'; }
 			#cash-adjustments-body td:nth-child(2)::before { content: 'Reason'; }
 			#cash-adjustments-body td:nth-child(3)::before { content: 'COH change'; }
 			#cash-adjustments-body td:nth-child(4)::before { content: 'Date'; }
@@ -241,33 +258,37 @@
 			</section>
 
 			<section class="mt-8" aria-labelledby="cash-advances-title">
-				<div class="section-heading mb-4 flex flex-wrap items-end justify-between gap-3">
-					<div><p class="mono mb-2 text-[10px] uppercase tracking-[.18em] text-[#9aa293]">Cash movement</p><h2 id="cash-advances-title" class="text-xl font-extrabold">Stock Purchases / Abono from Current COH</h2><p class="mt-1 text-[11px] text-[#7f867d]">Abono here means cash used from the business's current COH to buy vape stock, clusters, supplies, or services.</p></div>
-					<div class="cash-actions flex gap-2"><button id="toggle-advances-button" class="action action-quiet text-xs" type="button" aria-controls="cash-advances-content" aria-expanded="true">▾ Hide</button><button id="new-adjustment-button" class="action action-quiet text-xs" type="button">± Cash adjustment</button><button id="new-advance-button" class="action action-danger text-xs" type="button">− Record purchase</button></div>
+				<div class="cash-movement-header section-heading panel mb-4 flex flex-wrap items-end justify-between gap-4">
+					<div class="cash-movement-copy"><p class="mono mb-2 text-[10px] uppercase tracking-[.18em] text-[#9aa293]">Cash movement</p><h2 id="cash-advances-title" class="text-xl font-extrabold">Purchases &amp; cash changes</h2><p class="mt-1 text-sm text-[#9ca398]">Track money used to buy stock, supplies, or services—and any cash added or removed.</p></div>
+					<div class="cash-actions flex gap-2"><button id="toggle-advances-button" class="action action-quiet text-xs" type="button" aria-controls="cash-advances-content" aria-expanded="true" data-show-label="Show details" data-hide-label="Hide details">Hide details</button><button id="new-adjustment-button" class="action action-quiet text-xs" type="button">Adjust cash</button><button id="new-advance-button" class="action action-primary text-xs" type="button">+ Add purchase</button></div>
 				</div>
 				<div id="cash-advances-content">
+					<div class="cash-guide mb-3" aria-label="How purchases affect cash on hand">
+						<div class="cash-guide-item"><span class="cash-guide-dot" aria-hidden="true"></span><p class="text-xs text-[#a1a1a6]"><strong class="block text-[#f5f5f7]">Paid with business cash</strong>Deducted from Current COH.</p></div>
+						<div class="cash-guide-item"><span class="cash-guide-dot" aria-hidden="true"></span><p class="text-xs text-[#a1a1a6]"><strong class="block text-[#f5f5f7]">Paid personally or online</strong>Recorded only; physical COH stays the same.</p></div>
+					</div>
 					<div id="advance-form-panel" class="panel mb-3 hidden p-4">
-						<div class="mb-3 flex items-center justify-between"><h3 class="text-sm font-bold">Record purchase from current COH</h3><button id="cancel-advance-button" class="text-xs text-[#9ca398] hover:text-white" type="button">Cancel</button></div>
+						<div class="mb-4 flex items-start justify-between gap-4"><div><h3 class="text-sm font-bold">Add a purchase</h3><p class="mt-1 text-xs text-[#7f867d]">Enter what was bought and how it was paid.</p></div><button id="cancel-advance-button" class="text-xs text-[#9ca398] hover:text-white" type="button">Cancel</button></div>
 						<form id="advance-form" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-							<select id="advance-category" class="field text-sm" aria-label="Money out category"><option value="vape">Vape products</option><option value="clusters">Clusters</option><option value="printing">Printing</option><option value="other">Other</option></select>
-							<select id="advance-funding-source" class="field text-sm" aria-label="Purchase funding source"><option value="business">Paid from business COH</option><option value="personal">Personal abono — no COH change</option><option value="online">GCash / online — no cash change</option></select>
-							<input id="advance-description" class="field text-sm" type="text" maxlength="100" placeholder="What did you buy?" required>
-							<input id="advance-amount" class="field mono text-sm" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="Purchase cost (₱)" required>
-							<div class="flex items-center justify-between gap-3 sm:col-span-2 lg:col-span-4"><span class="text-xs text-[#98a08f]">Only “Paid from business COH” is deducted. Keep the purchase record after products are sold.</span><button class="action action-danger min-w-28 text-xs" type="submit">Save purchase</button></div>
+							<label class="form-label" for="advance-category">Category<select id="advance-category" class="field text-sm"><option value="vape">Vape products</option><option value="clusters">Clusters</option><option value="printing">Printing supplies</option><option value="other">Other</option></select></label>
+							<label class="form-label" for="advance-funding-source">Paid with<select id="advance-funding-source" class="field text-sm"><option value="business">Business cash (deduct COH)</option><option value="personal">Personal money (no COH change)</option><option value="online">GCash / online (no COH change)</option></select></label>
+							<label class="form-label" for="advance-description">Purchase details<input id="advance-description" class="field text-sm" type="text" maxlength="100" placeholder="Example: 10 vape units" required></label>
+							<label class="form-label" for="advance-amount">Total cost<input id="advance-amount" class="field mono text-sm" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="₱0.00" required></label>
+							<div class="flex items-center justify-between gap-3 sm:col-span-2 lg:col-span-4"><span class="text-xs text-[#98a08f]">Choose Business cash only when money came from physical cash on hand.</span><button class="action action-primary min-w-28 text-xs" type="submit">Save purchase</button></div>
 						</form>
 					</div>
 					<div id="cash-adjustment-form-panel" class="panel mb-3 hidden p-4">
-						<div class="mb-3 flex items-center justify-between"><div><h3 class="text-sm font-bold">Record physical cash adjustment</h3><p class="mt-1 text-[11px] text-[#7f867d]">Use only when cash physically entered or left outside an order or purchase.</p></div><button id="cancel-adjustment-button" class="text-xs text-[#9ca398] hover:text-white" type="button">Cancel</button></div>
+						<div class="mb-4 flex items-start justify-between gap-4"><div><h3 class="text-sm font-bold">Adjust physical cash</h3><p class="mt-1 text-xs text-[#7f867d]">Use this for cash changes that are not a sale or purchase.</p></div><button id="cancel-adjustment-button" class="text-xs text-[#9ca398] hover:text-white" type="button">Cancel</button></div>
 						<form id="cash-adjustment-form" class="grid gap-3 sm:grid-cols-3">
-							<select id="adjustment-direction" class="field text-sm" aria-label="Cash adjustment direction"><option value="add">Cash added</option><option value="remove">Cash removed</option></select>
-							<input id="adjustment-reason" class="field text-sm" type="text" maxlength="100" placeholder="Required reason" required>
-							<input id="adjustment-amount" class="field mono text-sm" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="Amount (₱)" required>
-							<div class="flex justify-end sm:col-span-3"><button class="action action-primary min-w-28 text-xs" type="submit">Apply adjustment</button></div>
+							<label class="form-label" for="adjustment-direction">Change<select id="adjustment-direction" class="field text-sm"><option value="add">Add cash</option><option value="remove">Remove cash</option></select></label>
+							<label class="form-label" for="adjustment-reason">Reason<input id="adjustment-reason" class="field text-sm" type="text" maxlength="100" placeholder="Why did cash change?" required></label>
+							<label class="form-label" for="adjustment-amount">Amount<input id="adjustment-amount" class="field mono text-sm" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="₱0.00" required></label>
+							<div class="flex justify-end sm:col-span-3"><button class="action action-primary min-w-28 text-xs" type="submit">Save cash change</button></div>
 						</form>
 					</div>
-					<div class="mb-2 flex items-center justify-between"><h3 class="text-sm font-bold">Purchase history</h3><p class="text-xs text-[#7f867d]">Deducted from COH: <span id="advances-total" class="mono font-semibold text-[#ff8278]">₱0.00</span></p></div>
-					<div class="panel table-wrap"><table><thead><tr><th>Category</th><th>Purchase details</th><th>Cost from COH</th><th>Date</th><th class="text-right">Correction</th></tr></thead><tbody id="advances-body"></tbody></table><div id="advances-empty" class="hidden px-5 py-9 text-center"><p class="text-sm font-semibold text-[#d2d7cf]">No stock purchases recorded</p><p class="mt-1 text-xs text-[#81877f]">Record a purchase when current COH is used.</p></div></div>
-					<details class="mt-4"><summary class="cursor-pointer list-none text-xs font-bold text-[#a4aba1] hover:text-white">Cash correction history <span id="cash-adjustments-count" class="mono ml-2 text-[#777e75]">0</span></summary><div class="panel table-wrap mt-3"><table><thead><tr><th>Type</th><th>Reason</th><th>COH change</th><th>Date</th><th class="text-right">Action</th></tr></thead><tbody id="cash-adjustments-body"></tbody></table><div id="cash-adjustments-empty" class="hidden px-5 py-8 text-center text-xs text-[#81877f]">No cash corrections recorded.</div></div></details>
+					<div class="cash-list-heading mb-2 flex items-center justify-between"><div><h3 class="text-sm font-bold">Purchases</h3><p class="mt-1 text-xs text-[#7f867d]">Newest purchase appears first.</p></div><p class="cash-total-chip text-xs text-[#a1a1a6]">Business cash used <span id="advances-total" class="mono ml-2 font-semibold text-[#ff8278]">₱0.00</span></p></div>
+					<div class="panel table-wrap"><table><thead><tr><th>Purchase</th><th>Paid with</th><th>Amount</th><th>Date</th><th class="text-right">Action</th></tr></thead><tbody id="advances-body"></tbody></table><div id="advances-empty" class="hidden px-5 py-9 text-center"><p class="text-sm font-semibold text-[#d2d7cf]">No purchases yet</p><p class="mt-1 text-xs text-[#81877f]">Tap Add purchase to create the first record.</p></div></div>
+					<details class="cash-history mt-4"><summary class="cursor-pointer list-none text-xs font-bold text-[#a4aba1] hover:text-white">Cash change history <span id="cash-adjustments-count" class="mono ml-2 rounded bg-[#2c2c2e] px-2 py-1 text-[#a1a1a6]">0</span></summary><div class="panel table-wrap mt-2"><table><thead><tr><th>Change</th><th>Reason</th><th>Amount</th><th>Date</th><th class="text-right">Action</th></tr></thead><tbody id="cash-adjustments-body"></tbody></table><div id="cash-adjustments-empty" class="hidden px-5 py-8 text-center text-xs text-[#81877f]">No cash changes yet.</div></div></details>
 				</div>
 			</section>
 
@@ -485,7 +506,7 @@
 			const content = document.getElementById(contentId);
 			content.classList.toggle('hidden', !visible);
 			button.setAttribute('aria-expanded', String(visible));
-			button.textContent = visible ? '▾ Hide' : '▸ Show';
+			button.textContent = visible ? (button.dataset.hideLabel || '▾ Hide') : (button.dataset.showLabel || '▸ Show');
 			if (remember) {
 				try { localStorage.setItem(`sidequest-section-${contentId}`, visible ? 'open' : 'closed'); } catch (error) { console.warn('Could not save section preference.', error); }
 			}
@@ -780,17 +801,17 @@
 		}
 
 		function fundingSourceLabel(source) {
-			return ({ business: 'Business COH', personal: 'Personal abono', online: 'GCash / online' })[source] || 'Business COH';
+			return ({ business: 'Business cash', personal: 'Personal money', online: 'GCash / online' })[source] || 'Business cash';
 		}
 
 		function renderCashAdvances() {
 			const advances = [...state.cashAdvances].sort((a, b) => b.createdAt - a.createdAt);
 			document.getElementById('advances-body').innerHTML = advances.map(advance => `<tr>
-				<td><span class="badge badge-pending">${escapeHtml(advanceCategoryLabel(advance.category))}</span><span class="mt-1 block text-[10px] text-[#7f867d]">${escapeHtml(fundingSourceLabel(advance.fundingSource))}</span></td>
-				<td class="font-semibold text-[#e4e7e0]">${escapeHtml(advance.description)}</td>
-				<td class="mono font-medium ${advance.fundingSource === 'business' ? 'text-[#ff8278]' : 'text-[#858c83]'}">${advance.fundingSource === 'business' ? `−${money(advance.amount)}` : `${money(advance.amount)} · no COH change`}</td>
+				<td><span class="block font-semibold text-[#e4e7e0]">${escapeHtml(advance.description)}</span><span class="mt-1 block text-[10px] text-[#7f867d]">${escapeHtml(advanceCategoryLabel(advance.category))}</span></td>
+				<td><span class="text-[#d2d7cf]">${escapeHtml(fundingSourceLabel(advance.fundingSource))}</span><span class="mt-1 block text-[10px] text-[#7f867d]">${advance.fundingSource === 'business' ? 'Deducts COH' : 'No physical COH change'}</span></td>
+				<td class="mono font-medium ${advance.fundingSource === 'business' ? 'text-[#ff8278]' : 'text-[#d9ded6]'}">${advance.fundingSource === 'business' ? `−${money(advance.amount)}` : money(advance.amount)}</td>
 				<td class="mono whitespace-nowrap text-[11px] text-[#858c83]">${escapeHtml(advance.dateLabel)}</td>
-				<td><div class="flex justify-end"><button class="action action-quiet !px-2.5 !py-1.5 text-[11px]" type="button" data-delete-advance="${escapeHtml(advance.id)}">Undo mistake</button></div></td>
+				<td><div class="flex justify-end"><button class="action action-quiet !px-2.5 !py-1.5 text-[11px]" type="button" data-delete-advance="${escapeHtml(advance.id)}">Remove</button></div></td>
 			</tr>`).join('');
 			document.getElementById('advances-empty').classList.toggle('hidden', advances.length > 0);
 		}
@@ -806,7 +827,7 @@
 					<td class="font-semibold text-[#e4e7e0]">${escapeHtml(adjustment.reason)}</td>
 					<td class="mono font-medium ${signedAmount < 0 ? 'text-[#ff8278]' : 'text-[#c5f467]'}">${change}</td>
 					<td class="mono whitespace-nowrap text-[11px] text-[#858c83]">${escapeHtml(adjustment.dateLabel || '')}</td>
-					<td><div class="flex justify-end">${adjustment.kind === 'adjustment' ? `<button class="action action-quiet !px-2.5 !py-1.5 text-[11px]" type="button" data-delete-adjustment="${escapeHtml(adjustment.id)}">Undo mistake</button>` : '<span class="text-[11px] text-[#7f867d]">Saved count</span>'}</div></td>
+					<td><div class="flex justify-end">${adjustment.kind === 'adjustment' ? `<button class="action action-quiet !px-2.5 !py-1.5 text-[11px]" type="button" data-delete-adjustment="${escapeHtml(adjustment.id)}">Remove</button>` : '<span class="text-[11px] text-[#7f867d]">COH save</span>'}</div></td>
 				</tr>`;
 			}).join('');
 			document.getElementById('cash-adjustments-empty').classList.toggle('hidden', adjustments.length > 0);
@@ -874,11 +895,13 @@
 
 		document.getElementById('new-advance-button').addEventListener('click', () => {
 			setSectionVisible('toggle-advances-button', 'cash-advances-content', true);
+			document.getElementById('cash-adjustment-form-panel').classList.add('hidden');
 			document.getElementById('advance-form-panel').classList.remove('hidden');
 			document.getElementById('advance-description').focus();
 		});
 		document.getElementById('new-adjustment-button').addEventListener('click', () => {
 			setSectionVisible('toggle-advances-button', 'cash-advances-content', true);
+			document.getElementById('advance-form-panel').classList.add('hidden');
 			document.getElementById('cash-adjustment-form-panel').classList.remove('hidden');
 			document.getElementById('adjustment-reason').focus();
 		});
