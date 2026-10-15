@@ -30,15 +30,9 @@
 		.action:disabled { cursor: not-allowed; opacity: .5; transform: none; }
 		.cash-movement-header { padding: 18px; background: linear-gradient(135deg, #1c1c1e 0%, #17171a 100%); }
 		.cash-movement-copy { max-width: 650px; }
-		.cash-guide { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-		.cash-guide-item { display: flex; align-items: flex-start; gap: 9px; padding: 10px 12px; border: 1px solid #343438; border-radius: 9px; background: #151517; }
-		.cash-guide-dot { width: 8px; height: 8px; margin-top: 4px; flex: 0 0 auto; border-radius: 999px; background: var(--red); }
-		.cash-guide-item:last-child .cash-guide-dot { background: var(--muted); }
 		.form-label { display: grid; align-content: start; gap: 6px; color: var(--muted); font-size: 11px; font-weight: 600; }
 		.cash-list-heading { padding: 2px 2px 0; }
 		.cash-total-chip { padding: 7px 10px; border: 1px solid #51302e; border-radius: 8px; background: #261919; }
-		.cash-history summary { padding: 11px 2px; border-radius: 8px; }
-		.cash-history summary:hover { background: #1c1c1e; }
 		.badge { display: inline-flex; align-items: center; gap: 6px; border-radius: 6px; padding: 4px 8px; font-size: 11px; font-weight: 700; letter-spacing: 0; text-transform: uppercase; }
 		.badge-paid { color: var(--green) !important; background: #173522 !important; }
 		.badge-pending { color: #ff827a !important; background: #3b211f !important; }
@@ -55,8 +49,8 @@
 		[class*="text-[#c5f467]"] { color: var(--green) !important; }
 		[class*="bg-[#c5f467]"] { background-color: var(--blue) !important; color: #fff !important; }
 		#pending-total { color: var(--red) !important; }
-		#expected-total, #printing-collected-total { color: var(--blue) !important; }
-		#profit-total, #extras-collected-total { color: var(--green) !important; }
+		#printing-collected-total { color: var(--blue) !important; }
+		#extras-collected-total { color: var(--green) !important; }
 		#today-label { color: var(--muted) !important; }
 		h1, h2, h3 { color: var(--text); }
 		.toast { position: fixed; right: 20px; bottom: 20px; z-index: 20; background: #2c2c2e; color: var(--text); border: 1px solid #48484a; border-radius: 10px; padding: 12px 16px; box-shadow: 0 12px 36px #0008; animation: enter .2s ease-out; }
@@ -77,15 +71,11 @@
 			.metric p[id$="-total"] { overflow-wrap: anywhere; }
 			#cash-input { min-width: 0; font-size: 20px; }
 			#save-cash-button { min-height: 40px; flex-shrink: 0; }
-			.profit-summary { align-items: flex-start; flex-direction: column; gap: 10px; }
-			.profit-summary #profit-total { align-self: flex-end; }
 			.section-heading { align-items: stretch !important; flex-direction: column; }
 			.section-heading > div:last-child { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
-			.section-heading .cash-actions > button:first-child { grid-column: 1 / -1; }
 			.cash-movement-header { padding: 15px; }
 			.cash-movement-header.section-heading { gap: 16px; }
-			.cash-movement-header .cash-actions > button:first-child { grid-column: 1 / -1; grid-row: 2; }
-			.cash-guide { grid-template-columns: 1fr; }
+			.cash-movement-header .cash-actions { grid-template-columns: 1fr; }
 			.cash-list-heading { align-items: flex-start !important; flex-direction: column; gap: 9px; }
 			.cash-total-chip { width: 100%; display: flex; justify-content: space-between; }
 			.section-heading > button { width: 100%; }
@@ -96,9 +86,9 @@
 			form > .flex.items-center.justify-between { align-items: stretch; flex-direction: column; }
 			form > .flex.items-center.justify-between .action { width: 100%; }
 			#extra-edit-form > div:last-child,
-			#print-sale-form > div:last-child, #cash-adjustment-form > div:last-child { width: 100%; }
+			#print-sale-form > div:last-child { width: 100%; }
 			#extra-edit-form > div:last-child .action,
-			#print-sale-form > div:last-child .action, #cash-adjustment-form > div:last-child .action { width: 100%; }
+			#print-sale-form > div:last-child .action { width: 100%; }
 			#unpaid-orders-content, details .table-wrap, #inventory-content .table-wrap,
 			#cash-advances-content .table-wrap, #printing-sales-content, #cluster-sales-content {
 				overflow: visible;
@@ -147,15 +137,9 @@
 			#products-body td:nth-child(4)::before { content: 'Profit'; }
 			#products-body td:nth-child(5)::before { content: 'Actions'; }
 			#advances-body td:nth-child(1)::before { content: 'Purchase'; }
-			#advances-body td:nth-child(2)::before { content: 'Paid with'; }
-			#advances-body td:nth-child(3)::before { content: 'Amount'; }
-			#advances-body td:nth-child(4)::before { content: 'Date'; }
-			#advances-body td:nth-child(5)::before { content: 'Action'; }
-			#cash-adjustments-body td:nth-child(1)::before { content: 'Change'; }
-			#cash-adjustments-body td:nth-child(2)::before { content: 'Reason'; }
-			#cash-adjustments-body td:nth-child(3)::before { content: 'COH change'; }
-			#cash-adjustments-body td:nth-child(4)::before { content: 'Date'; }
-			#cash-adjustments-body td:nth-child(5)::before { content: 'Action'; }
+			#advances-body td:nth-child(2)::before { content: 'Amount'; }
+			#advances-body td:nth-child(3)::before { content: 'Date'; }
+			#advances-body td:nth-child(4)::before { content: 'Action'; }
 			#pending-orders-body td:nth-child(1)::before, #history-body td:nth-child(1)::before { content: 'Customer'; }
 			#pending-orders-body td:nth-child(2)::before, #history-body td:nth-child(2)::before { content: 'Product'; }
 			#pending-orders-body td:nth-child(3)::before, #history-body td:nth-child(3)::before { content: 'Item price'; }
@@ -173,7 +157,7 @@
 			#printing-sales-body td:nth-child(4)::before, #cluster-sales-body td:nth-child(4)::before { content: 'Status'; }
 			#printing-sales-body td:nth-child(5)::before, #cluster-sales-body td:nth-child(5)::before { content: 'Actions'; }
 			#advances-empty, #products-empty, #pending-empty, #history-empty,
-			#printing-sales-empty, #cluster-sales-empty, #cash-adjustments-empty { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+			#printing-sales-empty, #cluster-sales-empty { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
 			details summary { min-height: 44px; display: flex; align-items: center; }
 			.toast { left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); text-align: center; }
 			footer { margin-top: 40px !important; padding-bottom: env(safe-area-inset-bottom); }
@@ -219,7 +203,7 @@
 					<div><p class="mono mb-2 text-[10px] uppercase tracking-[.18em] text-[#9aa293]">Business overview / 01</p><h1 id="overview-title" class="text-[25px] font-extrabold tracking-[-.03em]">Sipagan lang palagi! </h1></div>
 					<span id="today-label" class="mono text-xs text-[#858c83]"></span>
 				</div>
-				<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+				<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
 					<article class="panel metric">
 						<div class="flex items-center justify-between gap-2"><span class="text-xs font-semibold text-[#a0a69d]">Cash on hand</span><span class="mono text-[10px] text-[#747b71]">AVAILABLE</span></div>
 						<div class="flex items-center gap-2"><span class="mono text-base text-[#a5aca1]">₱</span><input id="cash-input" class="field mono !border-0 !bg-transparent !p-0 text-xl font-medium" type="number" min="0" step="0.01" inputmode="decimal" aria-label="Cash on hand"><button id="save-cash-button" class="action action-primary !px-3 !py-1.5 text-xs" type="button">Save</button></div>
@@ -229,11 +213,6 @@
 						<div class="flex items-center justify-between gap-2"><span class="text-xs font-semibold text-[#a0a69d]">Cash pending value</span><span class="mono text-[10px] text-[#ff8278]">UNPAID CASH</span></div>
 						<p id="pending-total" class="mono text-[25px] font-medium tracking-[-.04em] text-[#ff968d]">₱0.00</p>
 						<div class="grid grid-cols-3 gap-2 text-[10px] text-[#7f867d]"><p>Orders <span id="pending-orders-total" class="mono block text-[#d9ded6]">₱0.00</span></p><p>Printing <span id="pending-printing-total" class="mono block text-[#d9ded6]">₱0.00</span></p><p>Clusters <span id="pending-clusters-total" class="mono block text-[#d9ded6]">₱0.00</span></p></div>
-					</article>
-					<article class="panel metric border-[#3a4a28]">
-						<div class="flex items-center justify-between gap-2"><span class="text-xs font-semibold text-[#a0a69d]">Expected overall</span><span class="mono text-[10px] text-[#c5f467]">PHYSICAL CASH</span></div>
-						<p id="expected-total" class="mono text-[25px] font-medium tracking-[-.04em] text-[#c5f467]">₱0.00</p>
-						<p class="text-[11px] text-[#7f867d]">Physical COH plus unpaid cash collections</p>
 					</article>
 					<article class="panel metric">
 						<div class="flex items-center justify-between gap-2"><span class="text-xs font-semibold text-[#a0a69d]">Tips &amp; delivery collected</span><span class="mono text-[10px] text-[#c5f467]">PAID</span></div>
@@ -246,49 +225,25 @@
 						<div class="grid grid-cols-2 gap-2 text-[11px] text-[#7f867d]"><p>Printing <span id="printing-only-total" class="mono block text-[#d9ded6]">₱0.00</span></p><p>Clusters <span id="clusters-only-total" class="mono block text-[#d9ded6]">₱0.00</span></p></div>
 					</article>
 				</div>
-					<div class="profit-summary mt-3 flex items-center justify-between rounded-md border border-[#2b302b] bg-[#171917] px-4 py-3">
-					<div><p class="text-xs font-semibold text-[#b9beb6]">Total profit</p><p class="mt-1 text-[11px] text-[#7f867d]">Paid vape margin + Printing &amp; Clusters profit + tips/delivery; starting cash is not profit</p></div>
-					<p id="profit-total" class="mono text-lg font-medium text-[#c5f467]">₱0.00</p>
-				</div>
-				<div class="mt-3 grid gap-3 sm:grid-cols-3">
-					<div class="panel flex items-center justify-between gap-4 px-4 py-3"><div><p class="text-xs font-semibold text-[#b9beb6]">Previous cash on hand</p><p class="mt-1 text-[11px] text-[#7f867d]">Balance before the latest cash-changing action</p></div><p id="previous-cash-total" class="mono whitespace-nowrap text-lg font-medium">₱0.00</p></div>
-					<div class="panel flex items-center justify-between gap-4 px-4 py-3"><div><p class="text-xs font-semibold text-[#b9beb6]">Current cash on hand</p><p class="mt-1 text-[11px] text-[#7f867d]">Available after paid sales and stock purchases</p></div><p id="current-cash-total" class="mono whitespace-nowrap text-lg font-medium text-[#c5f467]">₱0.00</p></div>
-					<div class="panel flex items-center justify-between gap-4 px-4 py-3"><div><p class="text-xs font-semibold text-[#b9beb6]">GCash / online collected</p><p class="mt-1 text-[11px] text-[#7f867d]">Recorded separately; does not affect physical COH</p></div><p id="online-collected-total" class="mono whitespace-nowrap text-lg font-medium text-[#c5f467]">₱0.00</p></div>
-				</div>
 			</section>
 
 			<section class="mt-8" aria-labelledby="cash-advances-title">
 				<div class="cash-movement-header section-heading panel mb-4 flex flex-wrap items-end justify-between gap-4">
-					<div class="cash-movement-copy"><p class="mono mb-2 text-[10px] uppercase tracking-[.18em] text-[#9aa293]">Cash movement</p><h2 id="cash-advances-title" class="text-xl font-extrabold">Purchases &amp; cash changes</h2><p class="mt-1 text-sm text-[#9ca398]">Track money used to buy stock, supplies, or services—and any cash added or removed.</p></div>
-					<div class="cash-actions flex gap-2"><button id="toggle-advances-button" class="action action-quiet text-xs" type="button" aria-controls="cash-advances-content" aria-expanded="true" data-show-label="Show details" data-hide-label="Hide details">Hide details</button><button id="new-adjustment-button" class="action action-quiet text-xs" type="button">Adjust cash</button><button id="new-advance-button" class="action action-primary text-xs" type="button">+ Add purchase</button></div>
+					<div class="cash-movement-copy"><p class="mono mb-2 text-[10px] uppercase tracking-[.18em] text-[#9aa293]">Expenses</p><h2 id="cash-advances-title" class="text-xl font-extrabold">Purchases</h2><p class="mt-1 text-sm text-[#9ca398]">Record stock, supplies, and other business purchases.</p></div>
+					<div class="cash-actions flex gap-2"><button id="toggle-advances-button" class="action action-quiet text-xs" type="button" aria-controls="cash-advances-content" aria-expanded="true" data-show-label="Show purchases" data-hide-label="Hide purchases">Hide purchases</button><button id="new-advance-button" class="action action-primary text-xs" type="button">+ Add purchase</button></div>
 				</div>
 				<div id="cash-advances-content">
-					<div class="cash-guide mb-3" aria-label="How purchases affect cash on hand">
-						<div class="cash-guide-item"><span class="cash-guide-dot" aria-hidden="true"></span><p class="text-xs text-[#a1a1a6]"><strong class="block text-[#f5f5f7]">Paid with business cash</strong>Deducted from Current COH.</p></div>
-						<div class="cash-guide-item"><span class="cash-guide-dot" aria-hidden="true"></span><p class="text-xs text-[#a1a1a6]"><strong class="block text-[#f5f5f7]">Paid personally or online</strong>Recorded only; physical COH stays the same.</p></div>
-					</div>
 					<div id="advance-form-panel" class="panel mb-3 hidden p-4">
 						<div class="mb-4 flex items-start justify-between gap-4"><div><h3 class="text-sm font-bold">Add a purchase</h3><p class="mt-1 text-xs text-[#7f867d]">Enter what was bought and how it was paid.</p></div><button id="cancel-advance-button" class="text-xs text-[#9ca398] hover:text-white" type="button">Cancel</button></div>
-						<form id="advance-form" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+						<form id="advance-form" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
 							<label class="form-label" for="advance-category">Category<select id="advance-category" class="field text-sm"><option value="vape">Vape products</option><option value="clusters">Clusters</option><option value="printing">Printing supplies</option><option value="other">Other</option></select></label>
-							<label class="form-label" for="advance-funding-source">Paid with<select id="advance-funding-source" class="field text-sm"><option value="business">Business cash (deduct COH)</option><option value="personal">Personal money (no COH change)</option><option value="online">GCash / online (no COH change)</option></select></label>
 							<label class="form-label" for="advance-description">Purchase details<input id="advance-description" class="field text-sm" type="text" maxlength="100" placeholder="Example: 10 vape units" required></label>
 							<label class="form-label" for="advance-amount">Total cost<input id="advance-amount" class="field mono text-sm" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="₱0.00" required></label>
-							<div class="flex items-center justify-between gap-3 sm:col-span-2 lg:col-span-4"><span class="text-xs text-[#98a08f]">Choose Business cash only when money came from physical cash on hand.</span><button class="action action-primary min-w-28 text-xs" type="submit">Save purchase</button></div>
+							<div class="flex justify-end sm:col-span-2 lg:col-span-3"><button class="action action-primary min-w-28 text-xs" type="submit">Save purchase</button></div>
 						</form>
 					</div>
-					<div id="cash-adjustment-form-panel" class="panel mb-3 hidden p-4">
-						<div class="mb-4 flex items-start justify-between gap-4"><div><h3 class="text-sm font-bold">Adjust physical cash</h3><p class="mt-1 text-xs text-[#7f867d]">Use this for cash changes that are not a sale or purchase.</p></div><button id="cancel-adjustment-button" class="text-xs text-[#9ca398] hover:text-white" type="button">Cancel</button></div>
-						<form id="cash-adjustment-form" class="grid gap-3 sm:grid-cols-3">
-							<label class="form-label" for="adjustment-direction">Change<select id="adjustment-direction" class="field text-sm"><option value="add">Add cash</option><option value="remove">Remove cash</option></select></label>
-							<label class="form-label" for="adjustment-reason">Reason<input id="adjustment-reason" class="field text-sm" type="text" maxlength="100" placeholder="Why did cash change?" required></label>
-							<label class="form-label" for="adjustment-amount">Amount<input id="adjustment-amount" class="field mono text-sm" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="₱0.00" required></label>
-							<div class="flex justify-end sm:col-span-3"><button class="action action-primary min-w-28 text-xs" type="submit">Save cash change</button></div>
-						</form>
-					</div>
-					<div class="cash-list-heading mb-2 flex items-center justify-between"><div><h3 class="text-sm font-bold">Purchases</h3><p class="mt-1 text-xs text-[#7f867d]">Newest purchase appears first.</p></div><p class="cash-total-chip text-xs text-[#a1a1a6]">Business cash used <span id="advances-total" class="mono ml-2 font-semibold text-[#ff8278]">₱0.00</span></p></div>
-					<div class="panel table-wrap"><table><thead><tr><th>Purchase</th><th>Paid with</th><th>Amount</th><th>Date</th><th class="text-right">Action</th></tr></thead><tbody id="advances-body"></tbody></table><div id="advances-empty" class="hidden px-5 py-9 text-center"><p class="text-sm font-semibold text-[#d2d7cf]">No purchases yet</p><p class="mt-1 text-xs text-[#81877f]">Tap Add purchase to create the first record.</p></div></div>
-					<details class="cash-history mt-4"><summary class="cursor-pointer list-none text-xs font-bold text-[#a4aba1] hover:text-white">Cash change history <span id="cash-adjustments-count" class="mono ml-2 rounded bg-[#2c2c2e] px-2 py-1 text-[#a1a1a6]">0</span></summary><div class="panel table-wrap mt-2"><table><thead><tr><th>Change</th><th>Reason</th><th>Amount</th><th>Date</th><th class="text-right">Action</th></tr></thead><tbody id="cash-adjustments-body"></tbody></table><div id="cash-adjustments-empty" class="hidden px-5 py-8 text-center text-xs text-[#81877f]">No cash changes yet.</div></div></details>
+					<div class="cash-list-heading mb-2 flex items-center justify-between"><div><h3 class="text-sm font-bold">Purchases</h3><p class="mt-1 text-xs text-[#7f867d]">Newest purchase appears first.</p></div><p class="cash-total-chip text-xs text-[#a1a1a6]">Total purchases <span id="advances-total" class="mono ml-2 font-semibold text-[#ff8278]">₱0.00</span></p></div>
+					<div class="panel table-wrap"><table><thead><tr><th>Purchase</th><th>Amount</th><th>Date</th><th class="text-right">Action</th></tr></thead><tbody id="advances-body"></tbody></table><div id="advances-empty" class="hidden px-5 py-9 text-center"><p class="text-sm font-semibold text-[#d2d7cf]">No purchases yet</p><p class="mt-1 text-xs text-[#81877f]">Tap Add purchase to create the first record.</p></div></div>
 				</div>
 			</section>
 
@@ -325,12 +280,10 @@
 						<select id="order-product" class="field text-sm sm:col-span-2" required aria-label="Select product"><option value="">Select a product</option></select>
 						<input id="customer-name" class="field text-sm" type="text" maxlength="70" placeholder="Customer name" required>
 						<select id="order-status" class="field text-sm" aria-label="Order status"><option value="pending">Pending / unpaid</option><option value="paid">Paid</option></select>
-						<select id="order-payment-method" class="field text-sm" aria-label="Order payment method"><option value="cash">Cash — affects COH</option><option value="online">GCash / online — no cash change</option></select>
 						<input id="order-cost-discount" class="field mono text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Puhunan discount (₱)" aria-label="Discount from unit puhunan">
 						<select id="order-extra-type" class="field text-sm" aria-label="Optional tip or delivery fee"><option value="">No tip or fee</option><option value="tip">Tip</option><option value="delivery">Delivery fee</option><option value="both">BOTH — Tip + Delivery fee</option></select>
 						<input id="order-tip-amount" class="field mono hidden text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Tip amount (₱)" aria-label="Tip amount">
 						<input id="order-delivery-amount" class="field mono hidden text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Delivery fee (₱)" aria-label="Delivery fee amount">
-						<p class="rounded-md border border-[#343934] bg-[#191b19] px-3 py-3 text-[11px] text-[#858c83] sm:col-span-2 lg:col-span-4">Adding an order does not deduct COH. Record the stock purchase above only when you actually buy the product.</p>
 						<div class="flex items-center justify-between gap-3 sm:col-span-2 lg:col-span-4"><span id="order-price-preview" class="text-xs text-[#98a08f]">Select a product to see the order value.</span><button id="save-order-button" class="action action-primary min-w-28 text-xs" type="submit">Save order</button></div>
 					</form>
 				</div>
@@ -338,7 +291,6 @@
 					<div class="mb-3 flex items-center justify-between"><h3 class="text-sm font-bold">Edit order costs &amp; charges</h3><button id="cancel-extra-edit-button" class="text-xs text-[#9ca398] hover:text-white" type="button">Cancel</button></div>
 					<form id="extra-edit-form" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
 						<input id="edit-cost-discount" class="field mono text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Puhunan discount (₱)" aria-label="Edit discount from unit puhunan">
-						<select id="edit-payment-method" class="field text-sm" aria-label="Edit order payment method"><option value="cash">Cash — affects COH</option><option value="online">GCash / online — no cash change</option></select>
 						<select id="edit-extra-type" class="field text-sm" aria-label="Edit tip or delivery fee type"><option value="">No tip or fee</option><option value="tip">Tip</option><option value="delivery">Delivery fee</option><option value="both">BOTH — Tip + Delivery fee</option></select>
 						<input id="edit-tip-amount" class="field mono hidden text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Tip amount (₱)" aria-label="Edit tip amount">
 						<input id="edit-delivery-amount" class="field mono hidden text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Delivery fee (₱)" aria-label="Edit delivery fee amount">
@@ -371,8 +323,6 @@
 						<input id="print-amount" class="field mono text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Selling price (₱)" required>
 						<input id="print-profit" class="field mono text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Profit (₱)" required>
 						<select id="print-status" class="field text-sm" aria-label="Sale status"><option value="pending">Pending / unpaid</option><option value="paid">Paid</option></select>
-						<select id="print-payment-method" class="field text-sm" aria-label="Sale payment method"><option value="cash">Cash — affects COH</option><option value="online">GCash / online — no cash change</option></select>
-						<p id="print-sale-coh-note" class="text-[11px] text-[#858c83] sm:col-span-2 lg:col-span-4"></p>
 						<div class="flex justify-end sm:col-span-2 lg:col-span-4"><button class="action action-primary min-w-28 text-xs" type="submit">Save sale</button></div>
 					</form>
 				</div>
@@ -394,8 +344,8 @@
 		const CLOUD_ROW_ID = 'shared';
 		const CLIENT_ID = crypto.randomUUID?.() || `${Date.now()}-browser`;
 
-		const COH_TRACKING_VERSION = 2;
-		const emptyState = { cashBase: 0, previousCashOnHand: null, cohTrackingVersion: COH_TRACKING_VERSION, products: [], orders: [], printSales: [], cashAdvances: [], cashAdjustments: [] };
+		const COH_TRACKING_VERSION = 4;
+		const emptyState = { cashBase: 0, cohTrackingVersion: COH_TRACKING_VERSION, products: [], orders: [], printSales: [], cashAdvances: [] };
 		let state = structuredClone(emptyState);
 		let editingProductId = null;
 		let editingOrderId = null;
@@ -438,12 +388,40 @@
 			if (!value || typeof value !== 'object' || !Array.isArray(value.products) || !Array.isArray(value.orders)) {
 				throw new Error('This backup does not contain valid dashboard data.');
 			}
-			const hasCurrentCohTracking = Number(value.cohTrackingVersion) === COH_TRACKING_VERSION;
+			const previousVersion = Number(value.cohTrackingVersion);
+			const legacyAdjustments = Array.isArray(value.cashAdjustments) ? value.cashAdjustments : [];
+			const legacyAdjustmentTotal = !Number.isFinite(previousVersion) || previousVersion < 3
+				? legacyAdjustments.filter(adjustment => adjustment?.kind !== 'reconciliation').reduce((sum, adjustment) => sum + (adjustment.direction === 'remove' ? -nonNegativeNumber(adjustment.amount) : nonNegativeNumber(adjustment.amount)), 0)
+				: 0;
+			const normalizedOrdersWithPayment = value.orders.filter(order => order && typeof order === 'object').map(normalizeOrder);
+			const normalizedPrintSalesWithPayment = Array.isArray(value.printSales) ? value.printSales.filter(sale => sale && typeof sale === 'object').map(sale => ({
+				...sale,
+				service: String(sale.service || ''),
+				amount: nonNegativeNumber(sale.amount),
+				profit: nonNegativeNumber(sale.profit),
+				status: sale.status === 'paid' ? 'paid' : 'pending',
+				category: sale.category === 'clusters' ? 'clusters' : 'printing',
+				paymentMethod: sale.paymentMethod === 'online' ? 'online' : 'cash'
+			})) : [];
+			const normalizedAdvancesWithSource = Array.isArray(value.cashAdvances) ? value.cashAdvances.filter(advance => advance && typeof advance === 'object').map(advance => {
+				const description = String(advance.description || '');
+				const category = advance.category === 'clusters' || /cluster/i.test(description)
+					? 'clusters'
+					: ['vape', 'printing', 'other'].includes(advance.category) ? advance.category : 'other';
+				const fundingSource = ['personal', 'online'].includes(advance.fundingSource) ? advance.fundingSource : 'business';
+				return { ...advance, description, category, fundingSource, amount: nonNegativeNumber(advance.amount) };
+			}) : [];
+			const migratingToSimpleCash = previousVersion !== COH_TRACKING_VERSION;
+			const legacyCashSales = migratingToSimpleCash
+				? normalizedOrdersWithPayment.filter(order => order.status === 'paid' && order.paymentMethod !== 'online').reduce((sum, order) => sum + orderTotal(order), 0)
+					+ normalizedPrintSalesWithPayment.filter(sale => sale.status === 'paid' && sale.paymentMethod !== 'online').reduce((sum, sale) => sum + sale.amount, 0)
+				: 0;
+			const legacyNonBusinessPurchases = migratingToSimpleCash
+				? normalizedAdvancesWithSource.filter(advance => advance.fundingSource !== 'business').reduce((sum, advance) => sum + advance.amount, 0)
+				: 0;
 			return {
-				cashBase: finiteNumber(value.cashBase),
-				// Older saves captured manual COH edits as movements. Reset that legacy
-				// value once so the displayed baseline begins at the current COH.
-				previousCashOnHand: hasCurrentCohTracking && value.previousCashOnHand != null && Number.isFinite(Number(value.previousCashOnHand)) ? Number(value.previousCashOnHand) : null,
+				// Preserve the displayed balance while moving to one manual cash total.
+				cashBase: finiteNumber(value.cashBase) + legacyAdjustmentTotal + legacyCashSales + legacyNonBusinessPurchases,
 				cohTrackingVersion: COH_TRACKING_VERSION,
 				products: value.products.filter(product => product && typeof product === 'object').map(product => ({
 					...product,
@@ -451,33 +429,9 @@
 					cost: nonNegativeNumber(product.cost),
 					price: nonNegativeNumber(product.price)
 				})),
-				orders: value.orders.filter(order => order && typeof order === 'object').map(normalizeOrder),
-				printSales: Array.isArray(value.printSales) ? value.printSales.filter(sale => sale && typeof sale === 'object').map(sale => ({
-					...sale,
-					service: String(sale.service || ''),
-					amount: nonNegativeNumber(sale.amount),
-					profit: nonNegativeNumber(sale.profit),
-					status: sale.status === 'paid' ? 'paid' : 'pending',
-					category: sale.category === 'clusters' ? 'clusters' : 'printing',
-					paymentMethod: sale.paymentMethod === 'online' ? 'online' : 'cash'
-				})) : [],
-				cashAdvances: Array.isArray(value.cashAdvances) ? value.cashAdvances.filter(advance => advance && typeof advance === 'object').map(advance => {
-					const description = String(advance.description || '');
-					const category = advance.category === 'clusters' || /cluster/i.test(description)
-						? 'clusters'
-						: ['vape', 'printing', 'other'].includes(advance.category) ? advance.category : 'other';
-					const fundingSource = ['personal', 'online'].includes(advance.fundingSource) ? advance.fundingSource : 'business';
-					return { ...advance, description, category, fundingSource, amount: nonNegativeNumber(advance.amount) };
-				}) : [],
-				cashAdjustments: Array.isArray(value.cashAdjustments) ? value.cashAdjustments.filter(adjustment => adjustment && typeof adjustment === 'object').map(adjustment => ({
-					...adjustment,
-					kind: adjustment.kind === 'reconciliation' ? 'reconciliation' : 'adjustment',
-					direction: adjustment.direction === 'remove' ? 'remove' : 'add',
-					reason: String(adjustment.reason || 'Cash correction'),
-					amount: nonNegativeNumber(adjustment.amount),
-					previousCash: finiteNumber(adjustment.previousCash),
-					newCash: finiteNumber(adjustment.newCash)
-				})) : []
+				orders: normalizedOrdersWithPayment.map(({ paymentMethod, ...order }) => order),
+				printSales: normalizedPrintSalesWithPayment.map(({ paymentMethod, ...sale }) => sale),
+				cashAdvances: normalizedAdvancesWithSource.map(({ fundingSource, ...advance }) => advance)
 			};
 		}
 
@@ -564,6 +518,8 @@
 				setDashboardVisible(true);
 				render();
 				startRealtimeSync();
+				// Persist the simplified cash model so removed fields do not return.
+				if (Number(data.state?.cohTrackingVersion) !== COH_TRACKING_VERSION) saveState();
 				setSyncStatus('Live · connected');
 			} catch (error) {
 				console.error('Unable to load shared dashboard.', error);
@@ -652,21 +608,14 @@
 			const pending = state.orders.filter(order => order.status === 'pending');
 			const paidPrintSales = state.printSales.filter(sale => sale.status === 'paid');
 			const pendingPrintSales = state.printSales.filter(sale => sale.status === 'pending');
-			const pendingCashOrders = pending.filter(order => order.paymentMethod !== 'online');
-			const pendingCashPrintSales = pendingPrintSales.filter(sale => sale.paymentMethod !== 'online');
-			const pendingOrdersValue = pendingCashOrders.reduce((sum, order) => sum + orderTotal(order), 0);
-			const pendingPrintingValue = pendingCashPrintSales.filter(sale => sale.category !== 'clusters').reduce((sum, sale) => sum + Number(sale.amount), 0);
-			const pendingClustersValue = pendingCashPrintSales.filter(sale => sale.category === 'clusters').reduce((sum, sale) => sum + Number(sale.amount), 0);
+			const pendingOrdersValue = pending.reduce((sum, order) => sum + orderTotal(order), 0);
+			const pendingPrintingValue = pendingPrintSales.filter(sale => sale.category !== 'clusters').reduce((sum, sale) => sum + Number(sale.amount), 0);
+			const pendingClustersValue = pendingPrintSales.filter(sale => sale.category === 'clusters').reduce((sum, sale) => sum + Number(sale.amount), 0);
 			const printingCollected = paidPrintSales.filter(sale => sale.category !== 'clusters').reduce((sum, sale) => sum + Number(sale.amount), 0);
 			const clustersCollected = paidPrintSales.filter(sale => sale.category === 'clusters').reduce((sum, sale) => sum + Number(sale.amount), 0);
 			const otherSalesCollected = printingCollected + clustersCollected;
-			const paidVapeCollected = paid.reduce((sum, order) => sum + orderTotal(order), 0);
-			const cashPaidVapeCollected = paid.filter(order => order.paymentMethod !== 'online').reduce((sum, order) => sum + orderTotal(order), 0);
-			const cashPrintingCollected = paidPrintSales.filter(sale => sale.paymentMethod !== 'online').reduce((sum, sale) => sum + Number(sale.amount), 0);
-			const onlineCollected = paid.filter(order => order.paymentMethod === 'online').reduce((sum, order) => sum + orderTotal(order), 0) + paidPrintSales.filter(sale => sale.paymentMethod === 'online').reduce((sum, sale) => sum + Number(sale.amount), 0);
-			const advancesTotal = state.cashAdvances.filter(advance => advance.fundingSource === 'business').reduce((sum, advance) => sum + Number(advance.amount), 0);
-			const adjustmentsTotal = state.cashAdjustments.filter(adjustment => adjustment.kind === 'adjustment').reduce((sum, adjustment) => sum + (adjustment.direction === 'remove' ? -Number(adjustment.amount) : Number(adjustment.amount)), 0);
-			const cashOnHand = Number(state.cashBase) + cashPaidVapeCollected + cashPrintingCollected - advancesTotal + adjustmentsTotal;
+			const advancesTotal = state.cashAdvances.reduce((sum, advance) => sum + Number(advance.amount), 0);
+			const cashOnHand = Number(state.cashBase) - advancesTotal;
 			return {
 				cashOnHand,
 				pendingValue: pendingOrdersValue + pendingPrintingValue + pendingClustersValue,
@@ -677,43 +626,26 @@
 				printingCollected,
 				clustersCollected,
 				otherSalesCollected,
-				paidVapeCollected,
-				advancesTotal,
-				cashPaidVapeCollected,
-				cashPrintingCollected,
-				onlineCollected,
-				adjustmentsTotal,
-				profit: paid.reduce((sum, order) => sum + Number(order.price) - effectiveCost(order) + extraAmount(order), 0) + paidPrintSales.reduce((sum, sale) => sum + Number(sale.profit), 0)
+				advancesTotal
 			};
 		}
 
 		function render() {
 			const summary = totals();
-			const previousCash = state.previousCashOnHand == null ? summary.cashOnHand : state.previousCashOnHand;
 			document.getElementById('cash-input').value = summary.cashOnHand;
 			document.getElementById('pending-total').textContent = money(summary.pendingValue);
 			document.getElementById('pending-orders-total').textContent = money(summary.pendingOrdersValue);
 			document.getElementById('pending-printing-total').textContent = money(summary.pendingPrintingValue);
 			document.getElementById('pending-clusters-total').textContent = money(summary.pendingClustersValue);
-			document.getElementById('expected-total').textContent = money(summary.cashOnHand + summary.pendingValue);
 			document.getElementById('extras-collected-total').textContent = money(summary.extraCollected);
 			document.getElementById('printing-collected-total').textContent = money(summary.otherSalesCollected);
 			document.getElementById('printing-only-total').textContent = money(summary.printingCollected);
 			document.getElementById('clusters-only-total').textContent = money(summary.clustersCollected);
-			document.getElementById('profit-total').textContent = money(summary.profit);
-			document.getElementById('previous-cash-total').textContent = money(previousCash);
-			document.getElementById('current-cash-total').textContent = money(summary.cashOnHand);
-			document.getElementById('online-collected-total').textContent = money(summary.onlineCollected);
 			document.getElementById('advances-total').textContent = money(summary.advancesTotal);
 			renderProducts();
 			renderOrders();
 			renderPrintSales();
 			renderCashAdvances();
-			renderCashAdjustments();
-		}
-
-		function captureCashBeforeChange() {
-			state.previousCashOnHand = totals().cashOnHand;
 		}
 
 		function renderProducts() {
@@ -739,7 +671,6 @@
 
 		function orderRow(order, history = false) {
 			const status = order.status === 'paid' ? '<span class="badge badge-paid">Paid</span>' : '<span class="badge badge-pending">Pending</span>';
-			const paymentLabel = order.paymentMethod === 'online' ? 'GCash / online' : 'Cash';
 			const tip = tipAmount(order);
 			const delivery = deliveryAmount(order);
 			const discount = costDiscount(order);
@@ -750,7 +681,7 @@
 				? `<button class="action action-primary !px-2.5 !py-1.5 text-[11px]" type="button" data-toggle-order="${escapeHtml(order.id)}">Mark paid</button>`
 				: `<button class="action action-quiet !px-2.5 !py-1.5 text-[11px]" type="button" data-toggle-order="${escapeHtml(order.id)}">Mark pending</button>`;
 			return `<tr>
-				<td><span class="block font-semibold text-[#e4e7e0]">${escapeHtml(order.customer)}</span><span class="mt-1 block text-[10px] text-[#7f867d]">${paymentLabel}</span></td>
+				<td><span class="block font-semibold text-[#e4e7e0]">${escapeHtml(order.customer)}</span></td>
 				<td><div><span class="block text-[#d2d7cf]">${escapeHtml(order.productName)}</span><span class="mono text-[10px] text-[#7f867d]">Cost ${money(order.cost)}</span></div></td>
 				<td class="mono text-[#d9ded6]">${money(order.price)}</td>
 				<td class="mono text-[#b5bcb1]">${discount > 0 ? `−${money(discount)}` : '—'}</td>
@@ -776,9 +707,8 @@
 		function printSaleRow(sale) {
 				const status = sale.status === 'paid' ? '<span class="badge badge-paid">Paid</span>' : '<span class="badge badge-pending">Pending</span>';
 				const toggleLabel = sale.status === 'paid' ? 'Mark pending' : 'Mark paid';
-				const paymentLabel = sale.paymentMethod === 'online' ? 'GCash / online' : 'Cash';
 				return `<tr>
-					<td><span class="block font-semibold text-[#e4e7e0]">${escapeHtml(sale.service)}</span><span class="mt-1 block text-[10px] text-[#7f867d]">${paymentLabel}</span></td>
+					<td><span class="block font-semibold text-[#e4e7e0]">${escapeHtml(sale.service)}</span></td>
 					<td class="mono text-[#d9ded6]">${money(sale.amount)}</td>
 					<td class="mono text-[#c5f467]">${money(sale.profit)}</td>
 					<td>${status}</td>
@@ -800,39 +730,17 @@
 			return ({ vape: 'Vape products', clusters: 'Clusters', printing: 'Printing', other: 'Other' })[category] || 'Other';
 		}
 
-		function fundingSourceLabel(source) {
-			return ({ business: 'Business cash', personal: 'Personal money', online: 'GCash / online' })[source] || 'Business cash';
-		}
-
 		function renderCashAdvances() {
 			const advances = [...state.cashAdvances].sort((a, b) => b.createdAt - a.createdAt);
 			document.getElementById('advances-body').innerHTML = advances.map(advance => `<tr>
 				<td><span class="block font-semibold text-[#e4e7e0]">${escapeHtml(advance.description)}</span><span class="mt-1 block text-[10px] text-[#7f867d]">${escapeHtml(advanceCategoryLabel(advance.category))}</span></td>
-				<td><span class="text-[#d2d7cf]">${escapeHtml(fundingSourceLabel(advance.fundingSource))}</span><span class="mt-1 block text-[10px] text-[#7f867d]">${advance.fundingSource === 'business' ? 'Deducts COH' : 'No physical COH change'}</span></td>
-				<td class="mono font-medium ${advance.fundingSource === 'business' ? 'text-[#ff8278]' : 'text-[#d9ded6]'}">${advance.fundingSource === 'business' ? `−${money(advance.amount)}` : money(advance.amount)}</td>
+				<td class="mono font-medium text-[#ff8278]">−${money(advance.amount)}</td>
 				<td class="mono whitespace-nowrap text-[11px] text-[#858c83]">${escapeHtml(advance.dateLabel)}</td>
 				<td><div class="flex justify-end"><button class="action action-quiet !px-2.5 !py-1.5 text-[11px]" type="button" data-delete-advance="${escapeHtml(advance.id)}">Remove</button></div></td>
 			</tr>`).join('');
 			document.getElementById('advances-empty').classList.toggle('hidden', advances.length > 0);
 		}
 
-		function renderCashAdjustments() {
-			const adjustments = [...state.cashAdjustments].sort((a, b) => b.createdAt - a.createdAt);
-			document.getElementById('cash-adjustments-body').innerHTML = adjustments.map(adjustment => {
-				const signedAmount = adjustment.direction === 'remove' ? -Number(adjustment.amount) : Number(adjustment.amount);
-				const type = adjustment.kind === 'reconciliation' ? 'COH reconciliation' : adjustment.direction === 'remove' ? 'Cash removed' : 'Cash added';
-				const change = `${signedAmount >= 0 ? '+' : '−'}${money(Math.abs(signedAmount))}`;
-				return `<tr>
-					<td><span class="badge ${signedAmount < 0 ? 'badge-pending' : 'badge-paid'}">${escapeHtml(type)}</span></td>
-					<td class="font-semibold text-[#e4e7e0]">${escapeHtml(adjustment.reason)}</td>
-					<td class="mono font-medium ${signedAmount < 0 ? 'text-[#ff8278]' : 'text-[#c5f467]'}">${change}</td>
-					<td class="mono whitespace-nowrap text-[11px] text-[#858c83]">${escapeHtml(adjustment.dateLabel || '')}</td>
-					<td><div class="flex justify-end">${adjustment.kind === 'adjustment' ? `<button class="action action-quiet !px-2.5 !py-1.5 text-[11px]" type="button" data-delete-adjustment="${escapeHtml(adjustment.id)}">Remove</button>` : '<span class="text-[11px] text-[#7f867d]">COH save</span>'}</div></td>
-				</tr>`;
-			}).join('');
-			document.getElementById('cash-adjustments-empty').classList.toggle('hidden', adjustments.length > 0);
-			document.getElementById('cash-adjustments-count').textContent = adjustments.length;
-		}
 
 		function showToast(message) {
 			const region = document.getElementById('toast-region');
@@ -866,22 +774,7 @@
 				return;
 			}
 			const summary = totals();
-			const previousCash = summary.cashOnHand;
-			state.cashBase = enteredCash - summary.cashPaidVapeCollected - summary.cashPrintingCollected + summary.advancesTotal - summary.adjustmentsTotal;
-			const difference = enteredCash - previousCash;
-			if (Math.abs(difference) >= 0.005) {
-				const now = Date.now();
-				state.cashAdjustments.push({
-					id: crypto.randomUUID(), kind: 'reconciliation',
-					direction: difference < 0 ? 'remove' : 'add', amount: Math.abs(difference),
-					reason: 'Physical COH manually saved', previousCash, newCash: enteredCash,
-					createdAt: now,
-					dateLabel: new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' }).format(now)
-				});
-			}
-			// A manual save establishes the new COH baseline. Future payments and
-			// stock purchases are measured from this exact saved balance.
-			state.previousCashOnHand = previousCash;
+			state.cashBase = enteredCash + summary.advancesTotal;
 			saveState();
 			render();
 			document.getElementById('cash-save-status').textContent = `Saved at ${new Intl.DateTimeFormat('en', { hour: 'numeric', minute: '2-digit' }).format(new Date())}`;
@@ -895,41 +788,8 @@
 
 		document.getElementById('new-advance-button').addEventListener('click', () => {
 			setSectionVisible('toggle-advances-button', 'cash-advances-content', true);
-			document.getElementById('cash-adjustment-form-panel').classList.add('hidden');
 			document.getElementById('advance-form-panel').classList.remove('hidden');
 			document.getElementById('advance-description').focus();
-		});
-		document.getElementById('new-adjustment-button').addEventListener('click', () => {
-			setSectionVisible('toggle-advances-button', 'cash-advances-content', true);
-			document.getElementById('advance-form-panel').classList.add('hidden');
-			document.getElementById('cash-adjustment-form-panel').classList.remove('hidden');
-			document.getElementById('adjustment-reason').focus();
-		});
-		document.getElementById('cancel-adjustment-button').addEventListener('click', () => {
-			document.getElementById('cash-adjustment-form').reset();
-			document.getElementById('cash-adjustment-form-panel').classList.add('hidden');
-		});
-		document.getElementById('cash-adjustment-form').addEventListener('submit', event => {
-			event.preventDefault();
-			const direction = document.getElementById('adjustment-direction').value;
-			const reason = document.getElementById('adjustment-reason').value.trim();
-			const amount = Number(document.getElementById('adjustment-amount').value);
-			if (!reason || !Number.isFinite(amount) || amount <= 0) {
-				showToast('Enter a reason and an amount greater than ₱0.');
-				return;
-			}
-			captureCashBeforeChange();
-			const now = Date.now();
-			state.cashAdjustments.push({
-				id: crypto.randomUUID(), kind: 'adjustment', direction, reason, amount,
-				createdAt: now,
-				dateLabel: new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' }).format(now)
-			});
-			saveState();
-			document.getElementById('cash-adjustment-form').reset();
-			document.getElementById('cash-adjustment-form-panel').classList.add('hidden');
-			render();
-			showToast(`${money(amount)} ${direction === 'remove' ? 'removed from' : 'added to'} physical COH.`);
 		});
 		document.getElementById('cancel-advance-button').addEventListener('click', () => {
 			document.getElementById('advance-form').reset();
@@ -943,13 +803,10 @@
 				showToast('Enter a description and an amount greater than ₱0.');
 				return;
 			}
-			const fundingSource = document.getElementById('advance-funding-source').value;
-			if (fundingSource === 'business') captureCashBeforeChange();
 			const now = Date.now();
 			state.cashAdvances.push({
 				id: crypto.randomUUID(),
 				category: document.getElementById('advance-category').value,
-				fundingSource,
 				description,
 				amount,
 				createdAt: now,
@@ -959,7 +816,7 @@
 			document.getElementById('advance-form').reset();
 			document.getElementById('advance-form-panel').classList.add('hidden');
 			render();
-			showToast(fundingSource === 'business' ? `${money(amount)} purchase deducted once from Current COH.` : `${money(amount)} purchase recorded with no physical COH change.`);
+			showToast('Purchase saved.');
 		});
 
 		document.getElementById('new-product-button').addEventListener('click', () => {
@@ -1083,7 +940,6 @@
 			}
 			if (!chargesAreValid(charges)) return;
 			order.costDiscount = discount;
-			order.paymentMethod = document.getElementById('edit-payment-method').value;
 			order.extraType = charges.type;
 			order.tipAmount = charges.tip;
 			order.deliveryAmount = charges.delivery;
@@ -1128,15 +984,12 @@
 			if (!chargesAreValid(charges)) return;
 			const now = Date.now();
 			const orderStatus = document.getElementById('order-status').value;
-			const paymentMethod = document.getElementById('order-payment-method').value;
-			if (orderStatus === 'paid' && paymentMethod === 'cash') captureCashBeforeChange();
 			state.orders.push({
 				id: crypto.randomUUID(), customer, productId: product.id, productName: product.name,
 				cost: Number(product.cost), price: Number(product.price),
 				costDiscount: discount,
 				extraType: charges.type, tipAmount: charges.tip, deliveryAmount: charges.delivery, extraAmount: charges.tip + charges.delivery,
 				status: orderStatus,
-				paymentMethod,
 				createdAt: now,
 				dateLabel: new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' }).format(now)
 			});
@@ -1147,7 +1000,7 @@
 			if (orderStatus === 'pending') setSectionVisible('toggle-unpaid-orders-button', 'unpaid-orders-content', true);
 			updateOrderPreview();
 			render();
-			showToast(orderStatus === 'paid' ? (paymentMethod === 'cash' ? 'Cash payment added to Current COH.' : 'GCash / online payment recorded without changing physical COH.') : 'Pending order added. COH did not change.');
+			showToast(orderStatus === 'paid' ? 'Paid order added.' : 'Pending order added.');
 		});
 
 		document.addEventListener('click', event => {
@@ -1158,14 +1011,12 @@
 			const togglePrintSaleButton = event.target.closest('[data-toggle-print-sale]');
 			const deletePrintSaleButton = event.target.closest('[data-delete-print-sale]');
 			const deleteAdvanceButton = event.target.closest('[data-delete-advance]');
-			const deleteAdjustmentButton = event.target.closest('[data-delete-adjustment]');
 			if (editOrderButton) {
 				const order = state.orders.find(item => item.id === editOrderButton.dataset.editOrder && item.status === 'pending');
 				if (!order) return;
 				editingOrderId = order.id;
 				document.getElementById('edit-cost-discount').max = order.cost;
 				document.getElementById('edit-cost-discount').value = costDiscount(order) || '';
-				document.getElementById('edit-payment-method').value = order.paymentMethod === 'online' ? 'online' : 'cash';
 				document.getElementById('edit-extra-type').value = order.extraType || '';
 				updateChargeFields('edit');
 				document.getElementById('edit-tip-amount').value = tipAmount(order) || '';
@@ -1176,17 +1027,15 @@
 			if (toggleButton) {
 				const order = state.orders.find(item => item.id === toggleButton.dataset.toggleOrder);
 				if (!order) return;
-				if (order.paymentMethod !== 'online') captureCashBeforeChange();
 				order.status = order.status === 'paid' ? 'pending' : 'paid';
 				if (editingOrderId === order.id) closeExtraEditor();
 				saveState();
 				render();
-				showToast(order.status === 'paid' ? (order.paymentMethod === 'online' ? 'GCash / online payment recorded. Physical COH did not change.' : 'Cash payment recorded.') : 'Order moved back to pending.');
+				showToast(order.status === 'paid' ? 'Order marked paid.' : 'Order moved back to pending.');
 			}
 			if (deleteButton) {
 				const order = state.orders.find(item => item.id === deleteButton.dataset.deleteOrder);
 				if (!order || !window.confirm(`Delete the order for ${order.customer}?`)) return;
-				if (order.status === 'paid' && order.paymentMethod !== 'online') captureCashBeforeChange();
 				state.orders = state.orders.filter(item => item.id !== order.id);
 				saveState();
 				render();
@@ -1201,7 +1050,6 @@
 				document.getElementById('print-amount').value = sale.amount;
 				document.getElementById('print-profit').value = sale.profit;
 				document.getElementById('print-status').value = sale.status;
-				document.getElementById('print-payment-method').value = sale.paymentMethod === 'online' ? 'online' : 'cash';
 				updatePrintSaleFormText('Edit');
 				document.getElementById('print-sale-form-panel').classList.remove('hidden');
 				document.getElementById('print-service').focus();
@@ -1209,18 +1057,16 @@
 			if (togglePrintSaleButton) {
 				const sale = state.printSales.find(item => item.id === togglePrintSaleButton.dataset.togglePrintSale);
 				if (!sale) return;
-				if (sale.paymentMethod !== 'online') captureCashBeforeChange();
 				sale.status = sale.status === 'paid' ? 'pending' : 'paid';
 				saveState();
 				render();
 				const category = sale.category === 'clusters' ? 'Cluster' : 'Printing';
-				showToast(sale.status === 'paid' ? `${category} ${sale.paymentMethod === 'online' ? 'GCash / online payment recorded without changing physical COH.' : 'cash payment recorded.'}` : `${category} sale moved back to pending.`);
+				showToast(sale.status === 'paid' ? `${category} sale marked paid.` : `${category} sale moved back to pending.`);
 			}
 			if (deletePrintSaleButton) {
 				const sale = state.printSales.find(item => item.id === deletePrintSaleButton.dataset.deletePrintSale);
 				const category = sale?.category === 'clusters' ? 'cluster' : 'printing';
 				if (!sale || !window.confirm(`Delete the ${category} sale “${sale.service}”?`)) return;
-				if (sale.status === 'paid' && sale.paymentMethod !== 'online') captureCashBeforeChange();
 				state.printSales = state.printSales.filter(item => item.id !== sale.id);
 				saveState();
 				render();
@@ -1228,33 +1074,18 @@
 			}
 			if (deleteAdvanceButton) {
 				const advance = state.cashAdvances.find(item => item.id === deleteAdvanceButton.dataset.deleteAdvance);
-				const changesCoh = advance?.fundingSource === 'business';
-				if (!advance || !window.confirm(`Undo the ${money(advance.amount)} purchase “${advance.description}”? Only continue if this entry was a mistake or the purchase was refunded.${changesCoh ? ' This will add the amount back to COH.' : ''}`)) return;
-				if (changesCoh) captureCashBeforeChange();
+				if (!advance || !window.confirm(`Remove the ${money(advance.amount)} purchase “${advance.description}”?`)) return;
 				state.cashAdvances = state.cashAdvances.filter(item => item.id !== advance.id);
 				saveState();
 				render();
-				showToast(changesCoh ? `Purchase corrected. ${money(advance.amount)} returned to Current COH.` : 'Purchase record removed. Physical COH did not change.');
-			}
-			if (deleteAdjustmentButton) {
-				const adjustment = state.cashAdjustments.find(item => item.id === deleteAdjustmentButton.dataset.deleteAdjustment && item.kind === 'adjustment');
-				if (!adjustment || !window.confirm(`Undo the ${money(adjustment.amount)} cash adjustment “${adjustment.reason}”?`)) return;
-				captureCashBeforeChange();
-				state.cashAdjustments = state.cashAdjustments.filter(item => item.id !== adjustment.id);
-				saveState();
-				render();
-				showToast('Cash adjustment removed and COH recalculated.');
+				showToast('Purchase removed.');
 			}
 		});
 
 		function updatePrintSaleFormText(action = 'Log') {
 			const isCluster = document.getElementById('print-category').value === 'clusters';
-			const isOnline = document.getElementById('print-payment-method').value === 'online';
 			document.getElementById('print-sale-form-title').textContent = `${action} ${isCluster ? 'cluster' : 'printing'} sale`;
 			document.getElementById('print-service').placeholder = isCluster ? 'Cluster name or details' : 'Print job or service';
-			document.getElementById('print-sale-coh-note').textContent = isOnline
-				? 'GCash / online is recorded but never changes physical COH or cash expected. Profit must not exceed the customer amount.'
-				: `${isCluster ? 'Enter the full amount the customer pays. ' : ''}Pending adds to cash expected; Paid moves the same amount into physical COH. Profit must not exceed the amount.`;
 		}
 
 		function openPrintSaleForm(category) {
@@ -1270,7 +1101,6 @@
 		document.getElementById('new-printing-sale-button').addEventListener('click', () => openPrintSaleForm('printing'));
 		document.getElementById('new-cluster-sale-button').addEventListener('click', () => openPrintSaleForm('clusters'));
 		document.getElementById('print-category').addEventListener('change', () => updatePrintSaleFormText(editingPrintSaleId ? 'Edit' : 'Log'));
-		document.getElementById('print-payment-method').addEventListener('change', () => updatePrintSaleFormText(editingPrintSaleId ? 'Edit' : 'Log'));
 		document.getElementById('cancel-print-sale-button').addEventListener('click', () => {
 			editingPrintSaleId = null;
 			document.getElementById('print-sale-form').reset();
@@ -1293,11 +1123,9 @@
 				id: editingPrintSaleId || crypto.randomUUID(), service, amount, profit,
 				category: document.getElementById('print-category').value,
 				status: document.getElementById('print-status').value,
-				paymentMethod: document.getElementById('print-payment-method').value,
 				createdAt: existingSale ? existingSale.createdAt : now,
 				dateLabel: existingSale ? existingSale.dateLabel : new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' }).format(now)
 			};
-			if ((existingSale?.status === 'paid' && existingSale.paymentMethod !== 'online') || (sale.status === 'paid' && sale.paymentMethod !== 'online')) captureCashBeforeChange();
 			if (existingSale) state.printSales = state.printSales.map(item => item.id === sale.id ? sale : item);
 			else state.printSales.push(sale);
 			saveState();
