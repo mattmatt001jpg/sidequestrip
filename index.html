@@ -193,7 +193,7 @@
 					<div><p class="mono mb-2 text-[10px] uppercase tracking-[.18em] text-[#9aa293]">Business overview / 01</p><h1 id="overview-title" class="text-[25px] font-extrabold tracking-[-.03em]">Sipagan lang palagi! </h1></div>
 					<span id="today-label" class="mono text-xs text-[#858c83]"></span>
 				</div>
-				<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+				<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
 					<article class="panel metric">
 						<div class="flex items-center justify-between gap-2"><span class="text-xs font-semibold text-[#a0a69d]">Cash on hand</span><span class="mono text-[10px] text-[#747b71]">AVAILABLE</span></div>
 						<div class="flex items-center gap-2"><span class="mono text-base text-[#a5aca1]">₱</span><input id="cash-input" class="field mono !border-0 !bg-transparent !p-0 text-xl font-medium" type="number" min="0" step="0.01" inputmode="decimal" aria-label="Cash on hand"><button id="save-cash-button" class="action action-primary !px-3 !py-1.5 text-xs" type="button">Save</button></div>
@@ -202,7 +202,12 @@
 					<article class="panel metric">
 						<div class="flex items-center justify-between gap-2"><span class="text-xs font-semibold text-[#a0a69d]">Cash pending value</span><span class="mono text-[10px] text-[#ff8278]">UNPAID CASH</span></div>
 						<p id="pending-total" class="mono text-[25px] font-medium tracking-[-.04em] text-[#ff968d]">₱0.00</p>
-						<p class="text-[11px] text-[#7f867d]">Total value of orders that are not yet paid</p>
+						<div class="grid grid-cols-3 gap-2 text-[10px] text-[#7f867d]"><p>Vape <span id="pending-orders-total" class="mono block text-[#d9ded6]">₱0.00</span></p><p>Printing <span id="pending-printing-total" class="mono block text-[#d9ded6]">₱0.00</span></p><p>Clusters <span id="pending-clusters-total" class="mono block text-[#d9ded6]">₱0.00</span></p></div>
+					</article>
+					<article class="panel metric border-[#3a4a28]">
+						<div class="flex items-center justify-between gap-2"><span class="text-xs font-semibold text-[#a0a69d]">Expected overall</span><span class="mono text-[10px] text-[#c5f467]">IF ALL PAID</span></div>
+						<p id="expected-total" class="mono text-[25px] font-medium tracking-[-.04em] text-[#c5f467]">₱0.00</p>
+						<p class="text-[11px] text-[#7f867d]">Cash on hand plus all unpaid orders</p>
 					</article>
 				</div>
 			</section>
@@ -533,10 +538,16 @@
 
 		function totals() {
 			const pending = state.orders.filter(order => order.status === 'pending');
+			const pendingPrintSales = state.printSales.filter(sale => sale.status === 'pending');
 			const pendingOrdersValue = pending.reduce((sum, order) => sum + orderTotal(order), 0);
+			const pendingPrintingValue = pendingPrintSales.filter(sale => sale.category !== 'clusters').reduce((sum, sale) => sum + Number(sale.amount), 0);
+			const pendingClustersValue = pendingPrintSales.filter(sale => sale.category === 'clusters').reduce((sum, sale) => sum + Number(sale.amount), 0);
 			return {
 				cashOnHand: Number(state.cashBase) || 0,
-				pendingValue: pendingOrdersValue
+				pendingValue: pendingOrdersValue + pendingPrintingValue + pendingClustersValue,
+				pendingOrdersValue,
+				pendingPrintingValue,
+				pendingClustersValue
 			};
 		}
 
@@ -544,6 +555,10 @@
 			const summary = totals();
 			document.getElementById('cash-input').value = summary.cashOnHand;
 			document.getElementById('pending-total').textContent = money(summary.pendingValue);
+			document.getElementById('pending-orders-total').textContent = money(summary.pendingOrdersValue);
+			document.getElementById('pending-printing-total').textContent = money(summary.pendingPrintingValue);
+			document.getElementById('pending-clusters-total').textContent = money(summary.pendingClustersValue);
+			document.getElementById('expected-total').textContent = money(summary.cashOnHand + summary.pendingValue);
 			renderProducts();
 			renderOrders();
 			renderPrintSales();
