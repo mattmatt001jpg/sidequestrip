@@ -49,8 +49,6 @@
 		[class*="text-[#c5f467]"] { color: var(--green) !important; }
 		[class*="bg-[#c5f467]"] { background-color: var(--blue) !important; color: #fff !important; }
 		#pending-total { color: var(--red) !important; }
-		#printing-collected-total { color: var(--blue) !important; }
-		#extras-collected-total { color: var(--green) !important; }
 		#today-label { color: var(--muted) !important; }
 		h1, h2, h3 { color: var(--text); }
 		.toast { position: fixed; right: 20px; bottom: 20px; z-index: 20; background: #2c2c2e; color: var(--text); border: 1px solid #48484a; border-radius: 10px; padding: 12px 16px; box-shadow: 0 12px 36px #0008; animation: enter .2s ease-out; }
@@ -85,12 +83,10 @@
 			.action { min-height: 42px; }
 			form > .flex.items-center.justify-between { align-items: stretch; flex-direction: column; }
 			form > .flex.items-center.justify-between .action { width: 100%; }
-			#extra-edit-form > div:last-child,
 			#print-sale-form > div:last-child { width: 100%; }
-			#extra-edit-form > div:last-child .action,
 			#print-sale-form > div:last-child .action { width: 100%; }
 			#unpaid-orders-content, details .table-wrap, #inventory-content .table-wrap,
-			#cash-advances-content .table-wrap, #printing-sales-content, #cluster-sales-content {
+			#printing-sales-content, #cluster-sales-content {
 				overflow: visible;
 				background: transparent;
 				border: 0;
@@ -136,27 +132,21 @@
 			#products-body td:nth-child(3)::before { content: 'Selling price'; }
 			#products-body td:nth-child(4)::before { content: 'Profit'; }
 			#products-body td:nth-child(5)::before { content: 'Actions'; }
-			#advances-body td:nth-child(1)::before { content: 'Purchase'; }
-			#advances-body td:nth-child(2)::before { content: 'Amount'; }
-			#advances-body td:nth-child(3)::before { content: 'Date'; }
-			#advances-body td:nth-child(4)::before { content: 'Action'; }
 			#pending-orders-body td:nth-child(1)::before, #history-body td:nth-child(1)::before { content: 'Customer'; }
 			#pending-orders-body td:nth-child(2)::before, #history-body td:nth-child(2)::before { content: 'Product'; }
-			#pending-orders-body td:nth-child(3)::before, #history-body td:nth-child(3)::before { content: 'Item price'; }
-			#pending-orders-body td:nth-child(4)::before, #history-body td:nth-child(4)::before { content: 'Cost discount'; }
-			#pending-orders-body td:nth-child(5)::before, #history-body td:nth-child(5)::before { content: 'Tip / delivery'; }
-			#pending-orders-body td:nth-child(6)::before, #history-body td:nth-child(6)::before { content: 'Total due'; }
-			#pending-orders-body td:nth-child(7)::before { content: 'Profit'; }
-			#history-body td:nth-child(7)::before { content: 'Status'; }
-			#pending-orders-body td:nth-child(8)::before, #history-body td:nth-child(8)::before { content: 'Date'; }
-			#pending-orders-body td:nth-child(9)::before, #history-body td:nth-child(9)::before { content: 'Actions'; }
+			#pending-orders-body td:nth-child(3)::before, #history-body td:nth-child(3)::before { content: 'Amount'; }
+			#pending-orders-body td:nth-child(4)::before { content: 'Date'; }
+			#pending-orders-body td:nth-child(5)::before { content: 'Actions'; }
+			#history-body td:nth-child(4)::before { content: 'Status'; }
+			#history-body td:nth-child(5)::before { content: 'Date'; }
+			#history-body td:nth-child(6)::before { content: 'Actions'; }
 			#printing-sales-body td:nth-child(1)::before { content: 'Print job'; }
 			#cluster-sales-body td:nth-child(1)::before { content: 'Cluster'; }
 			#printing-sales-body td:nth-child(2)::before, #cluster-sales-body td:nth-child(2)::before { content: 'Price'; }
 			#printing-sales-body td:nth-child(3)::before, #cluster-sales-body td:nth-child(3)::before { content: 'Profit'; }
 			#printing-sales-body td:nth-child(4)::before, #cluster-sales-body td:nth-child(4)::before { content: 'Status'; }
 			#printing-sales-body td:nth-child(5)::before, #cluster-sales-body td:nth-child(5)::before { content: 'Actions'; }
-			#advances-empty, #products-empty, #pending-empty, #history-empty,
+			#products-empty, #pending-empty, #history-empty,
 			#printing-sales-empty, #cluster-sales-empty { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
 			details summary { min-height: 44px; display: flex; align-items: center; }
 			.toast { left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); text-align: center; }
@@ -203,7 +193,7 @@
 					<div><p class="mono mb-2 text-[10px] uppercase tracking-[.18em] text-[#9aa293]">Business overview / 01</p><h1 id="overview-title" class="text-[25px] font-extrabold tracking-[-.03em]">Sipagan lang palagi! </h1></div>
 					<span id="today-label" class="mono text-xs text-[#858c83]"></span>
 				</div>
-				<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+				<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
 					<article class="panel metric">
 						<div class="flex items-center justify-between gap-2"><span class="text-xs font-semibold text-[#a0a69d]">Cash on hand</span><span class="mono text-[10px] text-[#747b71]">AVAILABLE</span></div>
 						<div class="flex items-center gap-2"><span class="mono text-base text-[#a5aca1]">₱</span><input id="cash-input" class="field mono !border-0 !bg-transparent !p-0 text-xl font-medium" type="number" min="0" step="0.01" inputmode="decimal" aria-label="Cash on hand"><button id="save-cash-button" class="action action-primary !px-3 !py-1.5 text-xs" type="button">Save</button></div>
@@ -212,38 +202,8 @@
 					<article class="panel metric">
 						<div class="flex items-center justify-between gap-2"><span class="text-xs font-semibold text-[#a0a69d]">Cash pending value</span><span class="mono text-[10px] text-[#ff8278]">UNPAID CASH</span></div>
 						<p id="pending-total" class="mono text-[25px] font-medium tracking-[-.04em] text-[#ff968d]">₱0.00</p>
-						<div class="grid grid-cols-3 gap-2 text-[10px] text-[#7f867d]"><p>Orders <span id="pending-orders-total" class="mono block text-[#d9ded6]">₱0.00</span></p><p>Printing <span id="pending-printing-total" class="mono block text-[#d9ded6]">₱0.00</span></p><p>Clusters <span id="pending-clusters-total" class="mono block text-[#d9ded6]">₱0.00</span></p></div>
+						<p class="text-[11px] text-[#7f867d]">Total value of orders that are not yet paid</p>
 					</article>
-					<article class="panel metric">
-						<div class="flex items-center justify-between gap-2"><span class="text-xs font-semibold text-[#a0a69d]">Tips &amp; delivery collected</span><span class="mono text-[10px] text-[#c5f467]">PAID</span></div>
-						<p id="extras-collected-total" class="mono text-[25px] font-medium tracking-[-.04em] text-[#c5f467]">₱0.00</p>
-						<p class="text-[11px] text-[#7f867d]">Tip and delivery extras</p>
-					</article>
-					<article class="panel metric">
-						<div class="flex items-center justify-between gap-2"><span class="text-xs font-semibold text-[#a0a69d]">Printing &amp; Clusters collected</span><span class="mono text-[10px] text-[#c5f467]">PAID</span></div>
-						<p id="printing-collected-total" class="mono text-[25px] font-medium tracking-[-.04em] text-[#c5f467]">₱0.00</p>
-						<div class="grid grid-cols-2 gap-2 text-[11px] text-[#7f867d]"><p>Printing <span id="printing-only-total" class="mono block text-[#d9ded6]">₱0.00</span></p><p>Clusters <span id="clusters-only-total" class="mono block text-[#d9ded6]">₱0.00</span></p></div>
-					</article>
-				</div>
-			</section>
-
-			<section class="mt-8" aria-labelledby="cash-advances-title">
-				<div class="cash-movement-header section-heading panel mb-4 flex flex-wrap items-end justify-between gap-4">
-					<div class="cash-movement-copy"><p class="mono mb-2 text-[10px] uppercase tracking-[.18em] text-[#9aa293]">Expenses</p><h2 id="cash-advances-title" class="text-xl font-extrabold">Purchases</h2><p class="mt-1 text-sm text-[#9ca398]">Record stock, supplies, and other business purchases.</p></div>
-					<div class="cash-actions flex gap-2"><button id="toggle-advances-button" class="action action-quiet text-xs" type="button" aria-controls="cash-advances-content" aria-expanded="true" data-show-label="Show purchases" data-hide-label="Hide purchases">Hide purchases</button><button id="new-advance-button" class="action action-primary text-xs" type="button">+ Add purchase</button></div>
-				</div>
-				<div id="cash-advances-content">
-					<div id="advance-form-panel" class="panel mb-3 hidden p-4">
-						<div class="mb-4 flex items-start justify-between gap-4"><div><h3 class="text-sm font-bold">Add a purchase</h3><p class="mt-1 text-xs text-[#7f867d]">Enter what was bought and how it was paid.</p></div><button id="cancel-advance-button" class="text-xs text-[#9ca398] hover:text-white" type="button">Cancel</button></div>
-						<form id="advance-form" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-							<label class="form-label" for="advance-category">Category<select id="advance-category" class="field text-sm"><option value="vape">Vape products</option><option value="clusters">Clusters</option><option value="printing">Printing supplies</option><option value="other">Other</option></select></label>
-							<label class="form-label" for="advance-description">Purchase details<input id="advance-description" class="field text-sm" type="text" maxlength="100" placeholder="Example: 10 vape units" required></label>
-							<label class="form-label" for="advance-amount">Total cost<input id="advance-amount" class="field mono text-sm" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="₱0.00" required></label>
-							<div class="flex justify-end sm:col-span-2 lg:col-span-3"><button class="action action-primary min-w-28 text-xs" type="submit">Save purchase</button></div>
-						</form>
-					</div>
-					<div class="cash-list-heading mb-2 flex items-center justify-between"><div><h3 class="text-sm font-bold">Purchases</h3><p class="mt-1 text-xs text-[#7f867d]">Newest purchase appears first.</p></div><p class="cash-total-chip text-xs text-[#a1a1a6]">Total purchases <span id="advances-total" class="mono ml-2 font-semibold text-[#ff8278]">₱0.00</span></p></div>
-					<div class="panel table-wrap"><table><thead><tr><th>Purchase</th><th>Amount</th><th>Date</th><th class="text-right">Action</th></tr></thead><tbody id="advances-body"></tbody></table><div id="advances-empty" class="hidden px-5 py-9 text-center"><p class="text-sm font-semibold text-[#d2d7cf]">No purchases yet</p><p class="mt-1 text-xs text-[#81877f]">Tap Add purchase to create the first record.</p></div></div>
 				</div>
 			</section>
 
@@ -280,33 +240,19 @@
 						<select id="order-product" class="field text-sm sm:col-span-2" required aria-label="Select product"><option value="">Select a product</option></select>
 						<input id="customer-name" class="field text-sm" type="text" maxlength="70" placeholder="Customer name" required>
 						<select id="order-status" class="field text-sm" aria-label="Order status"><option value="pending">Pending / unpaid</option><option value="paid">Paid</option></select>
-						<input id="order-cost-discount" class="field mono text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Puhunan discount (₱)" aria-label="Discount from unit puhunan">
-						<select id="order-extra-type" class="field text-sm" aria-label="Optional tip or delivery fee"><option value="">No tip or fee</option><option value="tip">Tip</option><option value="delivery">Delivery fee</option><option value="both">BOTH — Tip + Delivery fee</option></select>
-						<input id="order-tip-amount" class="field mono hidden text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Tip amount (₱)" aria-label="Tip amount">
-						<input id="order-delivery-amount" class="field mono hidden text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Delivery fee (₱)" aria-label="Delivery fee amount">
 						<div class="flex items-center justify-between gap-3 sm:col-span-2 lg:col-span-4"><span id="order-price-preview" class="text-xs text-[#98a08f]">Select a product to see the order value.</span><button id="save-order-button" class="action action-primary min-w-28 text-xs" type="submit">Save order</button></div>
 					</form>
 				</div>
-				<div id="extra-edit-panel" class="panel mb-3 hidden p-4">
-					<div class="mb-3 flex items-center justify-between"><h3 class="text-sm font-bold">Edit order costs &amp; charges</h3><button id="cancel-extra-edit-button" class="text-xs text-[#9ca398] hover:text-white" type="button">Cancel</button></div>
-					<form id="extra-edit-form" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-						<input id="edit-cost-discount" class="field mono text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Puhunan discount (₱)" aria-label="Edit discount from unit puhunan">
-						<select id="edit-extra-type" class="field text-sm" aria-label="Edit tip or delivery fee type"><option value="">No tip or fee</option><option value="tip">Tip</option><option value="delivery">Delivery fee</option><option value="both">BOTH — Tip + Delivery fee</option></select>
-						<input id="edit-tip-amount" class="field mono hidden text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Tip amount (₱)" aria-label="Edit tip amount">
-						<input id="edit-delivery-amount" class="field mono hidden text-sm" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Delivery fee (₱)" aria-label="Edit delivery fee amount">
-						<div class="flex justify-end sm:col-span-2"><button class="action action-primary min-w-28 text-xs" type="submit">Save order</button></div>
-					</form>
-				</div>
 
-				<div class="mb-3 flex flex-wrap items-center justify-between gap-3"><div><h3 class="text-sm font-bold">Unpaid orders</h3><p class="mt-1 text-[11px] text-[#7f867d]">Pending orders are included in expected overall total.</p></div><div class="flex items-center gap-2"><span id="pending-count" class="mono text-xs text-[#ff968d]">0 ORDERS</span><button id="toggle-unpaid-orders-button" class="action action-quiet !px-2.5 !py-1.5 text-[11px]" type="button" aria-controls="unpaid-orders-content" aria-expanded="true">▾ Hide</button></div></div>
+				<div class="mb-3 flex flex-wrap items-center justify-between gap-3"><div><h3 class="text-sm font-bold">Unpaid orders</h3><p class="mt-1 text-[11px] text-[#7f867d]">Orders that still need payment.</p></div><div class="flex items-center gap-2"><span id="pending-count" class="mono text-xs text-[#ff968d]">0 ORDERS</span><button id="toggle-unpaid-orders-button" class="action action-quiet !px-2.5 !py-1.5 text-[11px]" type="button" aria-controls="unpaid-orders-content" aria-expanded="true">▾ Hide</button></div></div>
 				<div id="unpaid-orders-content" class="panel table-wrap">
-					<table><thead><tr><th>Customer</th><th>Product</th><th>Item price</th><th>Cost discount</th><th>Tip / delivery</th><th>Total due</th><th>Profit</th><th>Date added</th><th class="text-right">Actions</th></tr></thead><tbody id="pending-orders-body"></tbody></table>
+					<table><thead><tr><th>Customer</th><th>Product</th><th>Amount</th><th>Date added</th><th class="text-right">Actions</th></tr></thead><tbody id="pending-orders-body"></tbody></table>
 					<div id="pending-empty" class="hidden px-5 py-9 text-center"><p class="text-sm font-semibold text-[#d2d7cf]">All caught up</p><p class="mt-1 text-xs text-[#81877f]">There are no unpaid orders.</p></div>
 				</div>
 
 				<details class="mt-5">
 					<summary class="cursor-pointer list-none text-xs font-bold text-[#a4aba1] hover:text-white">Order history <span id="history-count" class="mono ml-2 text-[#777e75]">0</span></summary>
-					<div class="panel table-wrap mt-3"><table><thead><tr><th>Customer</th><th>Product</th><th>Item price</th><th>Cost discount</th><th>Tip / delivery</th><th>Total due</th><th>Status</th><th>Date added</th><th class="text-right">Actions</th></tr></thead><tbody id="history-body"></tbody></table><div id="history-empty" class="hidden px-5 py-8 text-center text-xs text-[#81877f]">No orders have been logged.</div></div>
+					<div class="panel table-wrap mt-3"><table><thead><tr><th>Customer</th><th>Product</th><th>Amount</th><th>Status</th><th>Date added</th><th class="text-right">Actions</th></tr></thead><tbody id="history-body"></tbody></table><div id="history-empty" class="hidden px-5 py-8 text-center text-xs text-[#81877f]">No orders have been logged.</div></div>
 				</details>
 			</section>
 
@@ -344,11 +290,10 @@
 		const CLOUD_ROW_ID = 'shared';
 		const CLIENT_ID = crypto.randomUUID?.() || `${Date.now()}-browser`;
 
-		const COH_TRACKING_VERSION = 4;
-		const emptyState = { cashBase: 0, cohTrackingVersion: COH_TRACKING_VERSION, products: [], orders: [], printSales: [], cashAdvances: [] };
+		const COH_TRACKING_VERSION = 5;
+		const emptyState = { cashBase: 0, cohTrackingVersion: COH_TRACKING_VERSION, products: [], orders: [], printSales: [] };
 		let state = structuredClone(emptyState);
 		let editingProductId = null;
-		let editingOrderId = null;
 		let editingPrintSaleId = null;
 		let supabaseClient = null;
 		let currentEmail = '';
@@ -412,16 +357,21 @@
 				return { ...advance, description, category, fundingSource, amount: nonNegativeNumber(advance.amount) };
 			}) : [];
 			const migratingToSimpleCash = previousVersion !== COH_TRACKING_VERSION;
+			const legacyOrderTotal = order => Number(order.price) + nonNegativeNumber(order.tipAmount) + nonNegativeNumber(order.deliveryAmount);
 			const legacyCashSales = migratingToSimpleCash
-				? normalizedOrdersWithPayment.filter(order => order.status === 'paid' && order.paymentMethod !== 'online').reduce((sum, order) => sum + orderTotal(order), 0)
+				? normalizedOrdersWithPayment.filter(order => order.status === 'paid' && order.paymentMethod !== 'online').reduce((sum, order) => sum + legacyOrderTotal(order), 0)
 					+ normalizedPrintSalesWithPayment.filter(sale => sale.status === 'paid' && sale.paymentMethod !== 'online').reduce((sum, sale) => sum + sale.amount, 0)
 				: 0;
-			const legacyNonBusinessPurchases = migratingToSimpleCash
-				? normalizedAdvancesWithSource.filter(advance => advance.fundingSource !== 'business').reduce((sum, advance) => sum + advance.amount, 0)
-				: 0;
+			const allLegacyPurchases = normalizedAdvancesWithSource.reduce((sum, advance) => sum + advance.amount, 0);
+			const businessLegacyPurchases = normalizedAdvancesWithSource.filter(advance => advance.fundingSource === 'business').reduce((sum, advance) => sum + advance.amount, 0);
+			const preservedCash = migratingToSimpleCash
+				? previousVersion >= 4
+					? finiteNumber(value.cashBase) - allLegacyPurchases
+					: finiteNumber(value.cashBase) + legacyAdjustmentTotal + legacyCashSales - businessLegacyPurchases
+				: finiteNumber(value.cashBase);
 			return {
-				// Preserve the displayed balance while moving to one manual cash total.
-				cashBase: finiteNumber(value.cashBase) + legacyAdjustmentTotal + legacyCashSales + legacyNonBusinessPurchases,
+				// Purchases are removed, so keep the cash amount users already see.
+				cashBase: preservedCash,
 				cohTrackingVersion: COH_TRACKING_VERSION,
 				products: value.products.filter(product => product && typeof product === 'object').map(product => ({
 					...product,
@@ -429,9 +379,8 @@
 					cost: nonNegativeNumber(product.cost),
 					price: nonNegativeNumber(product.price)
 				})),
-				orders: normalizedOrdersWithPayment.map(({ paymentMethod, ...order }) => order),
-				printSales: normalizedPrintSalesWithPayment.map(({ paymentMethod, ...sale }) => sale),
-				cashAdvances: normalizedAdvancesWithSource.map(({ fundingSource, ...advance }) => advance)
+				orders: normalizedOrdersWithPayment.map(({ paymentMethod, costDiscount, extraType, tipAmount, deliveryAmount, extraAmount, ...order }) => order),
+				printSales: normalizedPrintSalesWithPayment.map(({ paymentMethod, ...sale }) => sale)
 			};
 		}
 
@@ -448,7 +397,6 @@
 		}
 
 		const collapsibleSections = [
-			['toggle-advances-button', 'cash-advances-content'],
 			['toggle-inventory-button', 'inventory-content'],
 			['toggle-unpaid-orders-button', 'unpaid-orders-content'],
 			['toggle-printing-button', 'printing-sales-content'],
@@ -579,54 +527,16 @@
 			};
 		}
 
-		function tipAmount(order) {
-			return Math.max(0, Number(order.tipAmount) || 0);
-		}
-
-		function deliveryAmount(order) {
-			return Math.max(0, Number(order.deliveryAmount) || 0);
-		}
-
-		function extraAmount(order) {
-			return tipAmount(order) + deliveryAmount(order);
-		}
-
 		function orderTotal(order) {
-			return Number(order.price) + extraAmount(order);
-		}
-
-		function costDiscount(order) {
-			return Math.min(Number(order.cost) || 0, Math.max(0, Number(order.costDiscount) || 0));
-		}
-
-		function effectiveCost(order) {
-			return Math.max(0, (Number(order.cost) || 0) - costDiscount(order));
+			return Number(order.price) || 0;
 		}
 
 		function totals() {
-			const paid = state.orders.filter(order => order.status === 'paid');
 			const pending = state.orders.filter(order => order.status === 'pending');
-			const paidPrintSales = state.printSales.filter(sale => sale.status === 'paid');
-			const pendingPrintSales = state.printSales.filter(sale => sale.status === 'pending');
 			const pendingOrdersValue = pending.reduce((sum, order) => sum + orderTotal(order), 0);
-			const pendingPrintingValue = pendingPrintSales.filter(sale => sale.category !== 'clusters').reduce((sum, sale) => sum + Number(sale.amount), 0);
-			const pendingClustersValue = pendingPrintSales.filter(sale => sale.category === 'clusters').reduce((sum, sale) => sum + Number(sale.amount), 0);
-			const printingCollected = paidPrintSales.filter(sale => sale.category !== 'clusters').reduce((sum, sale) => sum + Number(sale.amount), 0);
-			const clustersCollected = paidPrintSales.filter(sale => sale.category === 'clusters').reduce((sum, sale) => sum + Number(sale.amount), 0);
-			const otherSalesCollected = printingCollected + clustersCollected;
-			const advancesTotal = state.cashAdvances.reduce((sum, advance) => sum + Number(advance.amount), 0);
-			const cashOnHand = Number(state.cashBase) - advancesTotal;
 			return {
-				cashOnHand,
-				pendingValue: pendingOrdersValue + pendingPrintingValue + pendingClustersValue,
-				pendingOrdersValue,
-				pendingPrintingValue,
-				pendingClustersValue,
-				extraCollected: paid.reduce((sum, order) => sum + extraAmount(order), 0),
-				printingCollected,
-				clustersCollected,
-				otherSalesCollected,
-				advancesTotal
+				cashOnHand: Number(state.cashBase) || 0,
+				pendingValue: pendingOrdersValue
 			};
 		}
 
@@ -634,18 +544,9 @@
 			const summary = totals();
 			document.getElementById('cash-input').value = summary.cashOnHand;
 			document.getElementById('pending-total').textContent = money(summary.pendingValue);
-			document.getElementById('pending-orders-total').textContent = money(summary.pendingOrdersValue);
-			document.getElementById('pending-printing-total').textContent = money(summary.pendingPrintingValue);
-			document.getElementById('pending-clusters-total').textContent = money(summary.pendingClustersValue);
-			document.getElementById('extras-collected-total').textContent = money(summary.extraCollected);
-			document.getElementById('printing-collected-total').textContent = money(summary.otherSalesCollected);
-			document.getElementById('printing-only-total').textContent = money(summary.printingCollected);
-			document.getElementById('clusters-only-total').textContent = money(summary.clustersCollected);
-			document.getElementById('advances-total').textContent = money(summary.advancesTotal);
 			renderProducts();
 			renderOrders();
 			renderPrintSales();
-			renderCashAdvances();
 		}
 
 		function renderProducts() {
@@ -671,25 +572,16 @@
 
 		function orderRow(order, history = false) {
 			const status = order.status === 'paid' ? '<span class="badge badge-paid">Paid</span>' : '<span class="badge badge-pending">Pending</span>';
-			const tip = tipAmount(order);
-			const delivery = deliveryAmount(order);
-			const discount = costDiscount(order);
-			const extra = tip > 0 || delivery > 0
-				? `${tip > 0 ? `<span class="block text-[#d2d7cf]">Tip <span class="mono text-[#c5f467]">${money(tip)}</span></span>` : ''}${delivery > 0 ? `<span class="block text-[#d2d7cf]">Delivery <span class="mono text-[#c5f467]">${money(delivery)}</span></span>` : ''}`
-				: '<span class="text-[#737a71]">—</span>';
 			const toggle = order.status === 'pending'
 				? `<button class="action action-primary !px-2.5 !py-1.5 text-[11px]" type="button" data-toggle-order="${escapeHtml(order.id)}">Mark paid</button>`
 				: `<button class="action action-quiet !px-2.5 !py-1.5 text-[11px]" type="button" data-toggle-order="${escapeHtml(order.id)}">Mark pending</button>`;
 			return `<tr>
 				<td><span class="block font-semibold text-[#e4e7e0]">${escapeHtml(order.customer)}</span></td>
-				<td><div><span class="block text-[#d2d7cf]">${escapeHtml(order.productName)}</span><span class="mono text-[10px] text-[#7f867d]">Cost ${money(order.cost)}</span></div></td>
-				<td class="mono text-[#d9ded6]">${money(order.price)}</td>
-				<td class="mono text-[#b5bcb1]">${discount > 0 ? `−${money(discount)}` : '—'}</td>
-				<td><div>${extra}</div></td>
+				<td><span class="block text-[#d2d7cf]">${escapeHtml(order.productName)}</span></td>
 				<td class="mono font-medium text-[#d9ded6]">${money(orderTotal(order))}</td>
-				${history ? `<td>${status}</td>` : `<td class="mono text-[#c5f467]">${money(Number(order.price) - effectiveCost(order) + extraAmount(order))}</td>`}
+				${history ? `<td>${status}</td>` : ''}
 				<td class="mono whitespace-nowrap text-[11px] text-[#858c83]">${escapeHtml(order.dateLabel)}</td>
-				<td><div class="flex justify-end gap-2">${!history && order.status === 'pending' ? `<button class="action action-quiet !px-2.5 !py-1.5 text-[11px]" type="button" data-edit-order="${escapeHtml(order.id)}">Edit order</button>` : ''}${toggle}<button class="action action-danger !px-2.5 !py-1.5 text-[11px]" type="button" data-delete-order="${escapeHtml(order.id)}">Delete</button></div></td>
+				<td><div class="flex justify-end gap-2">${toggle}<button class="action action-danger !px-2.5 !py-1.5 text-[11px]" type="button" data-delete-order="${escapeHtml(order.id)}">Delete</button></div></td>
 			</tr>`;
 		}
 
@@ -726,22 +618,6 @@
 			document.getElementById('cluster-sales-empty').classList.toggle('hidden', clusterSales.length > 0);
 		}
 
-		function advanceCategoryLabel(category) {
-			return ({ vape: 'Vape products', clusters: 'Clusters', printing: 'Printing', other: 'Other' })[category] || 'Other';
-		}
-
-		function renderCashAdvances() {
-			const advances = [...state.cashAdvances].sort((a, b) => b.createdAt - a.createdAt);
-			document.getElementById('advances-body').innerHTML = advances.map(advance => `<tr>
-				<td><span class="block font-semibold text-[#e4e7e0]">${escapeHtml(advance.description)}</span><span class="mt-1 block text-[10px] text-[#7f867d]">${escapeHtml(advanceCategoryLabel(advance.category))}</span></td>
-				<td class="mono font-medium text-[#ff8278]">−${money(advance.amount)}</td>
-				<td class="mono whitespace-nowrap text-[11px] text-[#858c83]">${escapeHtml(advance.dateLabel)}</td>
-				<td><div class="flex justify-end"><button class="action action-quiet !px-2.5 !py-1.5 text-[11px]" type="button" data-delete-advance="${escapeHtml(advance.id)}">Remove</button></div></td>
-			</tr>`).join('');
-			document.getElementById('advances-empty').classList.toggle('hidden', advances.length > 0);
-		}
-
-
 		function showToast(message) {
 			const region = document.getElementById('toast-region');
 			region.innerHTML = `<div class="toast" role="status">${escapeHtml(message)}</div>`;
@@ -773,8 +649,7 @@
 				showToast('Enter a valid cash balance before saving.');
 				return;
 			}
-			const summary = totals();
-			state.cashBase = enteredCash + summary.advancesTotal;
+			state.cashBase = enteredCash;
 			saveState();
 			render();
 			document.getElementById('cash-save-status').textContent = `Saved at ${new Intl.DateTimeFormat('en', { hour: 'numeric', minute: '2-digit' }).format(new Date())}`;
@@ -784,39 +659,6 @@
 		document.getElementById('save-cash-button').addEventListener('click', saveCashOnHand);
 		document.getElementById('cash-input').addEventListener('keydown', event => {
 			if (event.key === 'Enter') saveCashOnHand();
-		});
-
-		document.getElementById('new-advance-button').addEventListener('click', () => {
-			setSectionVisible('toggle-advances-button', 'cash-advances-content', true);
-			document.getElementById('advance-form-panel').classList.remove('hidden');
-			document.getElementById('advance-description').focus();
-		});
-		document.getElementById('cancel-advance-button').addEventListener('click', () => {
-			document.getElementById('advance-form').reset();
-			document.getElementById('advance-form-panel').classList.add('hidden');
-		});
-		document.getElementById('advance-form').addEventListener('submit', event => {
-			event.preventDefault();
-			const description = document.getElementById('advance-description').value.trim();
-			const amount = Number(document.getElementById('advance-amount').value);
-			if (!description || !Number.isFinite(amount) || amount <= 0) {
-				showToast('Enter a description and an amount greater than ₱0.');
-				return;
-			}
-			const now = Date.now();
-			state.cashAdvances.push({
-				id: crypto.randomUUID(),
-				category: document.getElementById('advance-category').value,
-				description,
-				amount,
-				createdAt: now,
-				dateLabel: new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' }).format(now)
-			});
-			saveState();
-			document.getElementById('advance-form').reset();
-			document.getElementById('advance-form-panel').classList.add('hidden');
-			render();
-			showToast('Purchase saved.');
 		});
 
 		document.getElementById('new-product-button').addEventListener('click', () => {
@@ -881,121 +723,33 @@
 		document.getElementById('cancel-order-button').addEventListener('click', () => {
 			document.getElementById('order-form-panel').classList.add('hidden');
 			document.getElementById('order-form').reset();
-			updateChargeFields('order');
 			updateOrderPreview();
-		});
-		document.getElementById('cancel-extra-edit-button').addEventListener('click', closeExtraEditor);
-
-		function closeExtraEditor() {
-			document.getElementById('extra-edit-panel').classList.add('hidden');
-			document.getElementById('extra-edit-form').reset();
-			updateChargeFields('edit');
-			editingOrderId = null;
-		}
-
-		function updateChargeFields(prefix) {
-			const type = document.getElementById(`${prefix}-extra-type`).value;
-			const tipInput = document.getElementById(`${prefix}-tip-amount`);
-			const deliveryInput = document.getElementById(`${prefix}-delivery-amount`);
-			const showTip = type === 'tip' || type === 'both';
-			const showDelivery = type === 'delivery' || type === 'both';
-			tipInput.classList.toggle('hidden', !showTip);
-			deliveryInput.classList.toggle('hidden', !showDelivery);
-			tipInput.required = showTip;
-			deliveryInput.required = showDelivery;
-			if (!showTip) tipInput.value = '';
-			if (!showDelivery) deliveryInput.value = '';
-		}
-
-		function readChargeAmounts(prefix) {
-			const type = document.getElementById(`${prefix}-extra-type`).value;
-			return {
-				type,
-				tip: type === 'tip' || type === 'both' ? Number(document.getElementById(`${prefix}-tip-amount`).value) || 0 : 0,
-				delivery: type === 'delivery' || type === 'both' ? Number(document.getElementById(`${prefix}-delivery-amount`).value) || 0 : 0
-			};
-		}
-
-		function chargesAreValid(charges) {
-			if ((charges.type === 'tip' || charges.type === 'both') && charges.tip <= 0) {
-				showToast('Enter a tip amount greater than ₱0.');
-				return false;
-			}
-			if ((charges.type === 'delivery' || charges.type === 'both') && charges.delivery <= 0) {
-				showToast('Enter a delivery fee greater than ₱0.');
-				return false;
-			}
-			return true;
-		}
-
-		document.getElementById('extra-edit-form').addEventListener('submit', event => {
-			event.preventDefault();
-			const order = state.orders.find(item => item.id === editingOrderId && item.status === 'pending');
-			if (!order) return;
-			const discount = Number(document.getElementById('edit-cost-discount').value) || 0;
-			const charges = readChargeAmounts('edit');
-			if (discount < 0 || discount > Number(order.cost)) {
-				showToast('Puhunan discount must be between ₱0 and the unit cost.');
-				return;
-			}
-			if (!chargesAreValid(charges)) return;
-			order.costDiscount = discount;
-			order.extraType = charges.type;
-			order.tipAmount = charges.tip;
-			order.deliveryAmount = charges.delivery;
-			order.extraAmount = charges.tip + charges.delivery;
-			saveState();
-			closeExtraEditor();
-			render();
-			showToast('Order discount and charges updated.');
 		});
 
 		function updateOrderPreview() {
 			const product = state.products.find(item => item.id === document.getElementById('order-product').value);
-			const charges = readChargeAmounts('order');
-			const extras = charges.tip + charges.delivery;
-			const chargeDetails = [charges.tip > 0 ? `Tip ${money(charges.tip)}` : '', charges.delivery > 0 ? `Delivery ${money(charges.delivery)}` : ''].filter(Boolean).join(' + ');
-			const discountInput = document.getElementById('order-cost-discount');
-			discountInput.max = product ? product.cost : '';
-			const discount = Number(discountInput.value) || 0;
-			const netCost = product ? Math.max(0, Number(product.cost) - discount) : 0;
 			document.getElementById('order-price-preview').textContent = product
-				? `Total due: ${money(Number(product.price) + extras)}${chargeDetails ? ` (${chargeDetails})` : ''} · Net puhunan: ${money(netCost)} · Profit: ${money(Number(product.price) - Number(product.cost) + discount + extras)}`
+				? `Order amount: ${money(product.price)}`
 				: 'Select a product to see the order value.';
 		}
 
 		document.getElementById('order-product').addEventListener('change', updateOrderPreview);
-		document.getElementById('order-cost-discount').addEventListener('input', updateOrderPreview);
-		document.getElementById('order-extra-type').addEventListener('change', () => { updateChargeFields('order'); updateOrderPreview(); });
-		document.getElementById('order-tip-amount').addEventListener('input', updateOrderPreview);
-		document.getElementById('order-delivery-amount').addEventListener('input', updateOrderPreview);
-		document.getElementById('edit-extra-type').addEventListener('change', () => updateChargeFields('edit'));
 		document.getElementById('order-form').addEventListener('submit', event => {
 			event.preventDefault();
 			const product = state.products.find(item => item.id === document.getElementById('order-product').value);
 			const customer = document.getElementById('customer-name').value.trim();
 			if (!product || !customer) return;
-			const discount = Number(document.getElementById('order-cost-discount').value) || 0;
-			const charges = readChargeAmounts('order');
-			if (discount < 0 || discount > Number(product.cost)) {
-				showToast('Puhunan discount must be between ₱0 and the unit cost.');
-				return;
-			}
-			if (!chargesAreValid(charges)) return;
 			const now = Date.now();
 			const orderStatus = document.getElementById('order-status').value;
 			state.orders.push({
 				id: crypto.randomUUID(), customer, productId: product.id, productName: product.name,
 				cost: Number(product.cost), price: Number(product.price),
-				costDiscount: discount,
-				extraType: charges.type, tipAmount: charges.tip, deliveryAmount: charges.delivery, extraAmount: charges.tip + charges.delivery,
 				status: orderStatus,
 				createdAt: now,
 				dateLabel: new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' }).format(now)
 			});
 			saveState();
 			document.getElementById('order-form').reset();
-			updateChargeFields('order');
 			document.getElementById('order-form-panel').classList.add('hidden');
 			if (orderStatus === 'pending') setSectionVisible('toggle-unpaid-orders-button', 'unpaid-orders-content', true);
 			updateOrderPreview();
@@ -1004,31 +758,15 @@
 		});
 
 		document.addEventListener('click', event => {
-			const editOrderButton = event.target.closest('[data-edit-order]');
 			const toggleButton = event.target.closest('[data-toggle-order]');
 			const deleteButton = event.target.closest('[data-delete-order]');
 			const editPrintSaleButton = event.target.closest('[data-edit-print-sale]');
 			const togglePrintSaleButton = event.target.closest('[data-toggle-print-sale]');
 			const deletePrintSaleButton = event.target.closest('[data-delete-print-sale]');
-			const deleteAdvanceButton = event.target.closest('[data-delete-advance]');
-			if (editOrderButton) {
-				const order = state.orders.find(item => item.id === editOrderButton.dataset.editOrder && item.status === 'pending');
-				if (!order) return;
-				editingOrderId = order.id;
-				document.getElementById('edit-cost-discount').max = order.cost;
-				document.getElementById('edit-cost-discount').value = costDiscount(order) || '';
-				document.getElementById('edit-extra-type').value = order.extraType || '';
-				updateChargeFields('edit');
-				document.getElementById('edit-tip-amount').value = tipAmount(order) || '';
-				document.getElementById('edit-delivery-amount').value = deliveryAmount(order) || '';
-				document.getElementById('extra-edit-panel').classList.remove('hidden');
-				document.getElementById('edit-cost-discount').focus();
-			}
 			if (toggleButton) {
 				const order = state.orders.find(item => item.id === toggleButton.dataset.toggleOrder);
 				if (!order) return;
 				order.status = order.status === 'paid' ? 'pending' : 'paid';
-				if (editingOrderId === order.id) closeExtraEditor();
 				saveState();
 				render();
 				showToast(order.status === 'paid' ? 'Order marked paid.' : 'Order moved back to pending.');
@@ -1071,14 +809,6 @@
 				saveState();
 				render();
 				showToast(`${category === 'cluster' ? 'Cluster' : 'Printing'} sale deleted.`);
-			}
-			if (deleteAdvanceButton) {
-				const advance = state.cashAdvances.find(item => item.id === deleteAdvanceButton.dataset.deleteAdvance);
-				if (!advance || !window.confirm(`Remove the ${money(advance.amount)} purchase “${advance.description}”?`)) return;
-				state.cashAdvances = state.cashAdvances.filter(item => item.id !== advance.id);
-				saveState();
-				render();
-				showToast('Purchase removed.');
 			}
 		});
 
@@ -1162,8 +892,6 @@
 		});
 
 		document.getElementById('today-label').textContent = new Intl.DateTimeFormat('en', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }).format(new Date()).toUpperCase();
-		updateChargeFields('order');
-		updateChargeFields('edit');
 		initializeCollapsibleSections();
 		initializeApp();
 	</script>
